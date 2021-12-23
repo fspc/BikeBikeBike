@@ -1,0 +1,89 @@
+# BikeBike
+#
+# ENV DATABASE_URL string = https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING
+#
+# docker-compose up -d
+# docker-compose run bikebike rake db:setup
+# docker-compose run bikebike rake db:migrate 
+# docker-compose run bikebike rake assets:precompile
+# docker-compose down
+# docker-compose up 
+#
+# don't do this because new sprockets and manifest.js isn't precompiling to *css, and breaks the container
+#  -- docker-compose run bikebike rake bumbleberry:update --
+
+
+version: '3'
+
+services:
+
+  db:
+    container_name: bikebikebike-db
+    image: postgres:9.5
+    ports:
+      - "5432"
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    volumes:
+      - bikebikebike_db:/var/lib/postgresql/data
+    environment:
+     - POSTGRES_PASSWORD=password
+     - POSTGRES_USER=bike_bike
+     - POSTGRES_DB=bike_bike
+
+  bikebike:
+    build: .
+    image: bikebikebike
+    container_name: bikebikebike
+    networks:
+      letsencrypt:
+      default: 
+    command: /bin/sh -c "rm -f /app/BikeBike/tmp/pids/server.pid  && rails server -e production -b '0.0.0.0'"
+    # Add environment values that are not in .env (environment:) below in the bike_bike_advanced_environment file
+    # Empty file ok, too, or just comment out this section
+    env_file:
+      - bike_bike_advanced_environment
+    # Add your own environment values in .env, or use the default ones
+    environment:
+      - PORT=3000
+      - DATABASE_URL=${DATABASE_URL:-postgresql://bike_bike:password@db/bike_bike?encoding=unicode&pool=5}
+      - RAILS_ENV=${RAILS_ENV:-production rails assets:precompile.log}
+      - SMTP_ADDRESS=${SMTP_ADDRESS:-fake-smtp.bikebike.org}
+      - SMTP_DOMAIN=${SMTP_DOMAIN:-bikebike.org}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USER_NAME=${SMTP_USER_NAME:-info@bikebike.org}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-fake}
+      - DEFAULT_URL=${DEFAULT_URL:-bikebike.org}
+    volumes:
+      - bikebikebike:/app/BikeBike
+      - bikebikebike_bundle:/usr/local/bundle
+    build: .
+    expose:
+      - "3000"
+    links:
+      - db
+    restart: always
+    logging:
+      driver: "json-file"  
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# Create this volumes, docker volume create me
+# or comment our external
+volumes:
+  bikebikebike_db:
+    external: true
+  bikebikebike:
+    external: true
+  bikebikebike_bundle:
+    external: true
+
+# Remove this network if you don't use it
+networks:
+  letsencrypt:
+    external: true

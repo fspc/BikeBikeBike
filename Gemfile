@@ -1,9 +1,9 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.2.0'
-gem 'pg'
-gem 'rake', '11.1.2'
-gem 'ruby_dep', '1.3.1' # Lock at 1.3.1 since 1.4 requires ruby 2.5. We should unlock once we upgrade the ruby version on our server
+gem 'rails', '4.2.8'
+gem 'pg', '0.21.0'
+gem 'rake', '12.3.3'
+gem 'ruby_dep', '1.4' # Lock at 1.3.1 since 1.4 requires ruby 2.5. We should unlock once we upgrade the ruby version on our server
 
 gem 'rack-mini-profiler'
 
@@ -41,17 +41,18 @@ gem 'sitemap_generator'
 gem 'sass-json-vars'
 gem 'redcarpet'
 gem 'to_spreadsheet', git: 'https://github.com/glebm/to_spreadsheet.git'
+gem 'net-ssh', '4.1.0'
 
 group :development do
   gem 'better_errors', '2.2.0'
   gem 'binding_of_caller'
   gem 'meta_request'
-  
+
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-faster-assets', '~> 1.0'
 
-  gem 'eventmachine', git: 'https://github.com/krzcho/eventmachine', :branch => 'master'
+  gem 'eventmachine', git: 'https://github.com/eventmachine/eventmachine', :branch => 'master'
   gem 'thin'
   gem 'rubocop', require: false
   gem 'haml-lint', require: false
@@ -67,6 +68,7 @@ group :test do
   gem 'guard-cucumber'
 
   gem 'poltergeist'
+  gem 'capybara', '2.15.1'
   gem 'capybara-email'
   gem 'guard-rspec'
   gem 'factory_girl_rails'
@@ -93,7 +95,7 @@ end
 
 platforms 'mswin', 'mingw' do
   gem 'tzinfo-data'
-  
+
   group :test do
     gem 'wdm', '>= 0.1.0'
       gem 'win32console', require: false

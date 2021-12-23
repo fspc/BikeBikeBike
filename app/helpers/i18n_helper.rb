@@ -5,8 +5,8 @@ module I18nHelper
     url ||= current_path(true)
 
     return url if Rails.env.development? || Rails.env.test?
-    return "https://preview-#{locale.to_s}.bikebike.org#{url}" if Rails.env.preview?
-    "https://#{locale.to_s}.bikebike.org#{url}"
+    return "https://preview-#{locale.to_s}." + ENV['DEFAULT_URL'] + "#{url}" if Rails.env.preview?
+    "https://#{locale.to_s}." + ENV['DEFAULT_URL'] + "#{url}"
   end
 
   def current_path(relative = false)
@@ -21,13 +21,13 @@ module I18nHelper
     return url_for(new_params) if relative
   
     subdomain = Rails.env.preview? ? "preview-#{locale.to_s}" : locale.to_s
-    url_for(new_params.merge(host: "#{subdomain}.bikebike.org"))
+    url_for(new_params.merge(host: "#{subdomain}." + ENV['DEFAULT_URL']))
   end
 
   def canonical_url
     url = current_path
     return url if Rails.env.development? || Rails.env.test?
-    return "https://preview.bikebike.org#{url}" if Rails.env.preview?
+    return ENV['DEFAULT_URL'] + "#{url}" if Rails.env.preview?
     "https://bikebike.org#{url}"
   end
 

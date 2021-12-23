@@ -6,7 +6,7 @@ class UserMailer < ActionMailer::Base
 
   before_filter :set_host
 
-  default from: "Bike!Bike! <info@bikebike.org>"
+  default from: "Bike!Bike! <" + ENV['SMTP_USER_NAME'] + ">"
 
   def email_confirmation(confirmation)
     @confirmation = EmailConfirmation.find_by_id(confirmation) if confirmation.present?
@@ -172,9 +172,9 @@ class UserMailer < ActionMailer::Base
   private
   def set_host(*args)
     if Rails.env.production?
-      @host = "https://#{I18n.locale.to_s}.bikebike.org"
+      @host = "https://#{I18n.locale.to_s}." + ENV['DEFAULT_URL']
     elsif Rails.env.preview?
-      @host = "https://preview-#{I18n.locale.to_s}.bikebike.org"
+      @host = "https://preview-#{I18n.locale.to_s}." + ENV['DEFAULT_URL']
     else
       @host = UserMailer.default_url_options[:host]
     end

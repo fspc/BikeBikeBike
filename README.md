@@ -5,6 +5,17 @@
 | Development | [![Development Build Status](https://travis-ci.org/bikebike/BikeBike.svg?branch=development)](https://travis-ci.org/bikebike/BikeBike) |
 | Production  | [![Production Build Status](https://travis-ci.org/bikebike/BikeBike.svg?branch=master)](https://travis-ci.org/bikebike/BikeBike) |
 
+## About this Fork
+
+The Tech group for BikeBike!Everywhere! decided to utilize this conferencing/scheduling software for the next BikeBike.
+
+This repository creates a test environment so that we can test/fix issues before manually committing them to the live site.
+
+Instructions can be found in docker-compose.yml, and docker-compose.build.
+
+
+## From bikebike/bikebike
+
 This is the repository for the Bike!Bike! website. It can be found in development at [preview.bikebike.org](https://preview-en.bikebike.org/) and in production at [bikebike.org](https://bikebike.org/)
 
 Feel free to clone or fork the repository any time to start working on new features or fixes. To get help create an issue or contact Godwin: `goodgodwin` `@` `hotmail.com` any time.

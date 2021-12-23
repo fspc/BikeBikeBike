@@ -28,7 +28,7 @@ BikeBike::Application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  #config.assets.compile = true
+  config.assets.compile = true
 
   # Generate digests for assets URLs.
   config.assets.digest = true
@@ -46,8 +46,6 @@ BikeBike::Application.configure do
   # Set to :debug to see everything in the log.
   config.log_level = :info
 
-  config.assets.compile = false
-
   # Prepend all log lines with the following tags.
   config.log_tags = [ :subdomain, :uuid ]
 
@@ -61,7 +59,8 @@ BikeBike::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets.
-  config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.json *.ttf *.otf *.woff *.woff2 *.svg *.json)
+  #config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.json *.ttf *.otf *.woff *.woff2 *.svg *.json)
+  config.assets.precompile = ["manifest.js"]
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -82,18 +81,18 @@ BikeBike::Application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
-    domain: 'bikebike.org',
-    port: 587,
+    address: config.app_config['smtp_address'],
+    domain: config.app_config['smtp_domain'],
+    port: config.app_config['smtp_port'],
     authentication: :plain,
     enable_starttls_auto: true,
     openssl_verify_mode: 'none',
-    user_name: 'info@bikebike.org',
-    password: config.app_config['email_password']
+    user_name: config.app_config['smtp_user_name'],
+    password: config.app_config['smtp_password']
   }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_deliveries = true
   I18n.config.language_detection_method = I18n::Config::DETECT_LANGUAGE_FROM_SUBDOMAIN
-  config.action_controller.default_url_options = { host: 'https://bikebike.org', trailing_slash: true }
+  config.action_controller.default_url_options = { host: config.app_config['default_url'], trailing_slash: true }
   Sidekiq::Extensions.enable_delay!
 end

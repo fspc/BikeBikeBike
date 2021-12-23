@@ -8,7 +8,9 @@
 !.openshift
 *~
 
-
+# Docker.gitignore
+.env
+bike_bike_advanced_environment
 
 # OSX.gitignore
 .DS_Store
