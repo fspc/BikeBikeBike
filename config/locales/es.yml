@@ -1346,7 +1346,7 @@ es:
         can_provide_housing: "¿Puedes proporcionar hospedaje a quienes visitan la
           ciudad?"
         Verify_Account: Verifica tu cuenta
-        policy: Normatividad
+        policy: Normas
         Contact_Info: Información de contacto
         contact_info: Información de contacto
         Administration: Administrar cuenta
@@ -1733,7 +1733,7 @@ es:
         org_select: Organización
         payment_form: Cantidad a pagar por registro
         payment_type: Método de pago para el registro
-        policy: Normatividad
+        policy: Normas
         housing_bike: Necesitas bici?
       warning:
         companion_unregistered: Tu acompañante no se ha registrado. Por favor aseguráte
@@ -2059,7 +2059,7 @@ es:
       Locale_Not_Available: Locale no disponible
     '500':
       An_Error_Occurred: Ocurrió un error
-    Policy: Normatividad
+    Policy: Normas
     About: Acerca de
     Register: Regístrate
     Pre_Register: Pre-Regístrate

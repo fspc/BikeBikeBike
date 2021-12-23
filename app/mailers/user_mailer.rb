@@ -149,6 +149,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def contact(from, subject, message, email_list)
+    return if subject =~ /^[a-z]{10}$/
     @message = message
     @from = from.is_a?(Integer) ? User.find(from) : from
 
@@ -156,6 +157,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def contact_details(from, subject, message, request, params)
+    return if subject =~ /^[a-z]{10}$/
     @message = message
     @from = from.is_a?(Integer) ? User.find(from) : from
     @request = request

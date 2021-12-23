@@ -10,7 +10,7 @@
     = stylesheets
     %link{ href: asset_path(@favicon), rel: 'shortcut icon', type: 'image/x-icon' }
     %link{ href: asset_path(@favicon), rel: 'icon', type: 'image/x-icon' }
-    - @alt_lang_urls.each do |locale, url|
+    - (@alt_lang_urls || []).each do |locale, url|
       %link{ rel: :alternate, hreflang: locale, href: url }
     %link{ href: canonical_url, rel: :canonical }
     - if content_for?(:og_image)

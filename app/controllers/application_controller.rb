@@ -232,20 +232,23 @@ class ApplicationController < BaseController
       request_info['env'][key.to_s] = value.to_s
     end
 
-    send_delayed_mail(:contact,
-        current_user || params[:email],
-        params[:subject],
-        params[:message],
-        email_list
-      )
+    if !(params[:subject] =~ /^\s*[a-z]{10}\s*$/i)
 
-    send_delayed_mail(:contact_details,
-        current_user || params[:email],
-        params[:subject],
-        params[:message],
-        request_info,
-        params
-      )
+        send_delayed_mail(:contact,
+            current_user || params[:email],
+            params[:subject],
+            params[:message],
+            email_list
+          )
+
+        send_delayed_mail(:contact_details,
+            current_user || params[:email],
+            params[:subject],
+            params[:message],
+            request_info,
+            params
+          )
+    end
 
     redirect_to contact_sent_path
   end
