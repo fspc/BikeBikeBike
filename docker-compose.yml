@@ -50,13 +50,14 @@ services:
     # Add your own environment values in .env, or use the default ones
     environment:
       - PORT=3000
+      - RAILS_ENV=${RAILS_ENV:-production}
       - DATABASE_URL=${DATABASE_URL:-postgresql://bike_bike:password@db/bike_bike?encoding=unicode&pool=5}
-      - RAILS_ENV=${RAILS_ENV:-production rails assets:precompile.log}
       - SMTP_ADDRESS=${SMTP_ADDRESS:-fake-smtp.bikebike.org}
       - SMTP_DOMAIN=${SMTP_DOMAIN:-bikebike.org}
       - SMTP_PORT=${SMTP_PORT:-587}
       - SMTP_USER_NAME=${SMTP_USER_NAME:-info@bikebike.org}
       - SMTP_PASSWORD=${SMTP_PASSWORD:-fake}
+      - SMTP_SSL=${SMTP_SSL:-false}
       - DEFAULT_URL=${DEFAULT_URL:-bikebike.org}
     volumes:
       - bikebikebike:/app/BikeBike

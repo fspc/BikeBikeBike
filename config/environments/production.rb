@@ -84,6 +84,7 @@ BikeBike::Application.configure do
     address: config.app_config['smtp_address'],
     domain: config.app_config['smtp_domain'],
     port: config.app_config['smtp_port'],
+    ssl: config.app_config['smtp_ssl'],  
     authentication: :plain,
     enable_starttls_auto: true,
     openssl_verify_mode: 'none',
