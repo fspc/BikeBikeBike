@@ -163,12 +163,12 @@ class UserMailer < ActionMailer::Base
     @request = request
     @params = params
 
-    mail to: 'goodgodwin@hotmail.com', subject: clean_subject("Details for: \"#{subject}\"")
+    mail to: ENV['ADMIN_EMAIL'], subject: clean_subject("Details for: \"#{subject}\"")
   end
 
   def server_startup(environment)
     @environment = environment
-    mail to: 'goodgodwin@hotmail.com', subject: clean_subject("Deployment to #{environment} complete")
+    mail to: ENV['ADMIN_EMAIL'], subject: clean_subject("Deployment to #{environment} complete")
   end
 
   private

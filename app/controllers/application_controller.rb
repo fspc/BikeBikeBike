@@ -213,7 +213,7 @@ class ApplicationController < BaseController
   end
 
   def contact_send
-    email_list = ['Godwin <goodgodwin@hotmail.com>']
+    email_list = [ENV['ADMIN_EMAIL']]
     
     if params[:reason] == 'conference' && logged_in?
 

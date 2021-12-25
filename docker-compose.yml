@@ -58,6 +58,7 @@ services:
       - SMTP_USER_NAME=${SMTP_USER_NAME:-info@bikebike.org}
       - SMTP_PASSWORD=${SMTP_PASSWORD:-fake}
       - SMTP_SSL=${SMTP_SSL:-false}
+      - ADMIN_EMAIL=${ADMIN_EMAIL:-info@bikebike.org}
       - DEFAULT_URL=${DEFAULT_URL:-bikebike.org}
     volumes:
       - bikebikebike:/app/BikeBike
