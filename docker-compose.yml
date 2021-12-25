@@ -42,7 +42,7 @@ services:
     networks:
       letsencrypt:
       default: 
-    command: /bin/sh -c "rm -f /app/BikeBike/tmp/pids/server.pid  && rails server -e production -b '0.0.0.0'"
+    command: /bin/sh -c "rm -f /app/BikeBike/tmp/pids/server.pid  && rails server -b '0.0.0.0'"
     # Add environment values that are not in .env (environment:) below in the bike_bike_advanced_environment file
     # Empty file ok, too, or just comment out this section
     env_file:
