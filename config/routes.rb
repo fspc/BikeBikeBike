@@ -1,3 +1,6 @@
+require 'sidekiq/web'
+Sidekiq::Web.set :sessions, false
+
 BikeBike::Application.routes.draw do
 
   # Conferences
@@ -95,5 +98,8 @@ BikeBike::Application.routes.draw do
 
   # Home page
   root 'application#home', as: :home
+
+  # Sidkiq Web UI
+  mount Sidekiq::Web => "/sidekiq"
 
 end
