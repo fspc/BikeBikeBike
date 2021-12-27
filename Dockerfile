@@ -15,7 +15,12 @@ WORKDIR /app/BikeBike
 
 RUN bundle install
 
-RUN mkdir -p public/stylesheets/application -p public/stylesheets/web-fonts  && tar xvfz bumbleberry-application.tar.gz -C public/stylesheets/application && tar xvfz bumbleberry-web-fonts.tar.gz -C public/stylesheets/web-fonts && tar xvfz bumbleberry-admin.tar.gz -C public/stylesheets/admin
+RUN mkdir -p public/stylesheets/application \ 
+          -p public/stylesheets/web-fonts \ 
+          -p public/stylesheets/admin \ 
+          && tar xvfz bumbleberry-application.tar.gz -C public/stylesheets/application \
+          && tar xvfz bumbleberry-web-fonts.tar.gz -C public/stylesheets/web-fonts \
+          && tar xvfz bumbleberry-admin.tar.gz -C public/stylesheets/admin
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/

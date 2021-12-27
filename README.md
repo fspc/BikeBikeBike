@@ -3,7 +3,7 @@
 | Environment | Build Status |
 | ----------- |:------------:|
 | Development | [![Development Build Status](https://travis-ci.org/bikebike/BikeBike.svg?branch=development)](https://travis-ci.org/bikebike/BikeBike) |
-| Production  | [![Production Build Status](https://travis-ci.org/bikebike/BikeBike.svg?branch=master)](https://travis-ci.org/bikebike/BikeBike) |
+| Production  | It works with this Fork! |
 
 ## About this Fork
 
@@ -13,6 +13,37 @@ This repository creates a test environment so that we can test/fix issues before
 
 Instructions can be found in docker-compose.yml, and docker-compose.build.
 
+You may easily switch between the production and development environment.  One good reason for doing this is that some system administration tasks are handled differently in production.  For instance, mail is delayed in production.
+
+Realize you can always do things in the containe:
+
+  `docker-compose exec bikebike /bin/bash`
+
+### From production to development
+
+   ```
+   rake assets:clobber
+   rake assets:precompile
+   ```
+### From development to production
+
+   ```
+   rake assets:clobber
+   rake assets:precompile
+   docker-compose restart bikebike
+   ```
+### About that letsencrypt network in docker-compose.yml
+
+I'll probably eventually come out with a github example of the docker-compose.yml file I utilize.  This network provides a nginx proxy and an automatic generation of letsencrypt certificates.  However, there are good directions at [ACME Companion](https://github.com/nginx-proxy/acme-companion) .
+
+In the `bike_bike_advanced_environment` file I utilize these ENV variables:
+
+  ```
+  VIRTUAL_HOST
+  LETSENCRYPT_HOST
+  LETSENCRYPT_EMAIL
+  VIRTUAL_PORT
+  ```	
 
 ## From bikebike/bikebike
 
