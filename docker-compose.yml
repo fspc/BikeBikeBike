@@ -11,11 +11,26 @@
 #
 # don't do this because new sprockets and manifest.js isn't precompiling to *css, and breaks the container
 #  -- docker-compose run bikebike rake bumbleberry:update --
-
+#
+# Not working - UserMailer.delay(queue: Rails.env.to_s).send(*args)
 
 version: '3'
 
 services:
+
+  redis:
+    container_name: bikebikebike-redis
+    image: redis:6.2-alpine 
+    ports:
+      - "6379"
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    #volumes:
+    #  - bikebikebike_db:/var/lib/postgresql/data
 
   db:
     container_name: bikebikebike-db
@@ -60,6 +75,7 @@ services:
       - SMTP_SSL=${SMTP_SSL:-false}
       - ADMIN_EMAIL=${ADMIN_EMAIL:-info@bikebike.org}
       - DEFAULT_URL=${DEFAULT_URL:-bikebike.org}
+      - REDIS_URL=redis://redis:6379
     volumes:
       - bikebikebike:/app/BikeBike
       - bikebikebike_bundle:/usr/local/bundle
