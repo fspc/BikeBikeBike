@@ -15,21 +15,26 @@ Instructions can be found in docker-compose.yml, and docker-compose.build.
 
 You may easily switch between the production and development environment.  One good reason for doing this is that some system administration tasks are handled differently in production.  For instance, mail is delayed in production.
 
-Realize you can always do things in the containe:
+Realize you can always do things in the container .. the commands without docker-compose, or automate it all with a docker-compose script:
 
   `docker-compose exec bikebike /bin/bash`
 
-### From production to development
+### From production to development after changing .env
 
    ```
+   docker-compose down
+   docker-compose up -d
    rake assets:clobber
    rake assets:precompile
    ```
-### From development to production
+### From development to production after changing .env
 
    ```
+   docker-compose down
+   docker-compose up -d
    rake assets:clobber
    rake assets:precompile
+   rake db:sessions:clear
    docker-compose restart bikebike
    ```
 ### About that letsencrypt network in docker-compose.yml

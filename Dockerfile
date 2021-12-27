@@ -8,7 +8,7 @@ MAINTAINER Jonathan Rosenbaum <bike@bikelover.org>
 
 COPY . /app/BikeBike
 
-RUN apt-get update && apt-get install -y  nodejs postgresql-client
+RUN apt-get update && apt-get install -y  nodejs postgresql-client vim less 
 
 # Note: phantomjs has been deprecated in favor of headless chrome
 WORKDIR /app/BikeBike
