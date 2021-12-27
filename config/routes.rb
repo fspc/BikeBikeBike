@@ -7,7 +7,7 @@ BikeBike::Application.routes.draw do
     get 'new' => 'administration#new', as: :new_conference
     post 'save' => 'administration#save', as: :save_conference
 
-    scope ':slug' do
+    scope ':slug', constraints: { slug: /[^\/]+/ } do
       root 'conferences#view', as: :conference
       
       get 'edit' => 'administration#edit', as: :edit_conference
