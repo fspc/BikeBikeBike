@@ -11,8 +11,6 @@
 #
 # don't do this because new sprockets and manifest.js isn't precompiling to *css, and breaks the container
 #  -- docker-compose run bikebike rake bumbleberry:update --
-#
-# Not working - UserMailer.delay(queue: Rails.env.to_s).send(*args)
 
 version: '3'
 
@@ -30,7 +28,32 @@ services:
         max-size: "10m"
         max-file: "3"
     #volumes:
-    #  - bikebikebike_db:/var/lib/postgresql/data
+    #  -
+
+  # Run sidekiq as it's own process using the same image that bikbike uses!
+  sidekiq:
+    image: bikebikebike 
+    container_name: bikebikebike-sidekiq
+    command: sidekiq -q production
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=${DATABASE_URL:-postgresql://bike_bike:password@db/bike_bike?encoding=unicode&pool=5}
+      - PORT=3000
+      - RAILS_ENV=${RAILS_ENV:-production}
+      - SMTP_ADDRESS=${SMTP_ADDRESS:-fake-smtp.bikebike.org}
+      - SMTP_DOMAIN=${SMTP_DOMAIN:-bikebike.org}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USER_NAME=${SMTP_USER_NAME:-info@bikebike.org}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-fake}
+      - SMTP_SSL=${SMTP_SSL:-false}
+      - ADMIN_EMAIL=${ADMIN_EMAIL:-info@bikebike.org}
+      - DEFAULT_URL=${DEFAULT_URL:-bikebike.org}
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   db:
     container_name: bikebikebike-db
