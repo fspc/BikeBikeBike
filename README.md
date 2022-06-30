@@ -13,13 +13,101 @@ This repository creates a test environment so that we can test/fix issues before
 
 Instructions can be found in docker-compose.yml, and docker-compose.build.
 
+### The bike_bike_advanced_environment file
+
+This file allows you to insert custom environmental variables.  It is recommended that nginxproxy/acme-companion be utilized to automate the creation, renewal and use of SSL certificates for proxied Docker containers through the ACME protocol.  This is useful to seamlessly handle the secure translation urls.  The example variables below communicate to an available external acme (letsencrypt) network to properly setup this proxied environment.
+
+  ```
+  VIRTUAL_HOST=bb.bikelover.org,en.bikelover.org,en.bb.bikelover.org,es.bb.bikelover.org,fr.bb.bikelover.org
+  LETSENCRYPT_HOST=bb.bikelover.org,en.bikelover.org,en.bb.bikelover.org,es.bb.bikelover.org,fr.bb.bikelover.org
+  LETSENCRYPT_EMAIL=bike@bikelover.org
+  VIRTUAL_PORT=3000
+  ```
+This is an example docker-compose.xml file handling the letsencrypt network.  
+
+<details>
+<summary>
+
+```
+docker-compose.xml (acme-companion & nginx-proxy)
+```
+
+</summary>
+
+```
+version: '3'
+
+# LetsEncrypt 
+# If you need a custome nginx.conf, remember to copy it over
+
+services:
+
+  letsencrypt:
+    image: nginxproxy/acme-companion
+    container_name: letsencrypt
+    #volumes_from:
+    #  - nginx-proxy
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - acme:/etc/acme.sh
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+    #network_mode: "bridge"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    restart: always
+    networks:
+      letsencrypt:
+
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    container_name: nginx-proxy
+    volumes:
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    restart: always
+    networks:
+     letsencrypt:
+
+
+volumes:
+  certs:
+  vhost:
+  html:
+  conf:
+  acme:
+
+networks:
+  letsencrypt:
+    external: true    
+````
+
+</details>
+
 ### After successful installation
 
 There isn't much to do until the first conference is created, but you will need an adminstrator to make that happen.
 
 First create a user for yourself at /user .  If you properly setup SMTP via docker, you will receive a confirmation email, which allows you to setup a session on your respective browser.
 
-Then go to the database container (db), and utilizing psql update your user.
+Then go to the database container (db), and utilizing psql, update your user.
 
   `UPDATE users SET role = 'administrator' WHERE firstname = 'Jonathan Rosenbaum';`
 
