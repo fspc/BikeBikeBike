@@ -101,6 +101,21 @@ networks:
 
 </details>
 
+### Commonly used environmental variables in .env
+
+```
+RAILS_ENV={production | development | customized environment in config/environments}
+PORT={usually 3000}
+SMTP_ADDRESS={your SMTP server address}
+SMTP_DOMAIN={The domain you want to link back in emails, usually the website itself, but not any translation subdomains}
+SMTP_PORT={465 | ..}
+SMTP_USER_NAME={SMTP username}
+SMTP_PASSWORD={SMTP password}
+SMTP_SSL={true | false}
+ADMIN_EMAIL={administrator email address}
+DEFAULT_URL={the website itself}
+```
+
 ### After successful installation
 
 There isn't much to do until the first conference is created, but you will need an adminstrator to make that happen.
