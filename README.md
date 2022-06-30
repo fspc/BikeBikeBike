@@ -13,9 +13,10 @@ This repository creates a test environment so that we can test/fix issues before
 
 Instructions can be found in docker-compose.yml, and docker-compose.build.
 
-### The bike_bike_advanced_environment file
 
-This file allows you to insert custom environmental variables.  It is recommended that nginxproxy/acme-companion be utilized to automate the creation, renewal and use of SSL certificates for proxied Docker containers through the ACME protocol.  This is useful to seamlessly handle the secure translation urls.  The example variables below communicate to an available external acme (letsencrypt) network to properly setup this proxied environment.
+#### The bike_bike_advanced_environment file
+
+This file allows you to insert custom environmental variables.  It is recommended that [ACME Companion](https://github.com/nginx-proxy/acme-companion) be utilized to automate the creation, renewal and use of SSL certificates for proxied Docker containers through the ACME protocol.  This is useful to seamlessly handle the secure translation urls.  The example variables below communicate to an available external acme (letsencrypt) network to properly setup this proxied environment.
 
   ```
   VIRTUAL_HOST=bb.bikelover.org,en.bikelover.org,en.bb.bikelover.org,es.bb.bikelover.org,fr.bb.bikelover.org
@@ -118,7 +119,7 @@ DEFAULT_URL={the website itself}
 
 ### After successful installation
 
-There isn't much to do until the first conference is created, but you will need an adminstrator to make that happen.
+There isn't much to do until the first conference is created because you will need an adminstrator to make that happen.
 
 First create a user for yourself at /user .  If you properly setup SMTP via docker, you will receive a confirmation email, which allows you to setup a session on your respective browser.
 
@@ -162,18 +163,6 @@ Realize you can always do things in the container .. the commands without docker
    rake db:sessions:clear
    docker-compose restart bikebike
    ```
-### About that letsencrypt network in docker-compose.yml
-
-I'll probably eventually come out with a github example of the docker-compose.yml file I utilize.  This network provides a nginx proxy and an automatic generation of letsencrypt certificates.  However, there are good directions at [ACME Companion](https://github.com/nginx-proxy/acme-companion) .
-
-In the `bike_bike_advanced_environment` file I utilize these ENV variables:
-
-  ```
-  VIRTUAL_HOST
-  LETSENCRYPT_HOST
-  LETSENCRYPT_EMAIL
-  VIRTUAL_PORT
-  ```	
 
 ## From bikebike/bikebike
 
