@@ -13,10 +13,13 @@ This repository creates a test environment so that we can test/fix issues before
 
 Instructions can be found in docker-compose.yml, and docker-compose.build.
 
+### About that letsencrypt network in docker-compose.yml
+
+This network provides a nginx proxy and an automatic generation of letsencrypt certificates. 
 
 #### The bike_bike_advanced_environment file
 
-This file allows you to insert custom environmental variables.  It is recommended that [ACME Companion](https://github.com/nginx-proxy/acme-companion) be utilized to automate the creation, renewal and use of SSL certificates for proxied Docker containers through the ACME protocol.  This is useful to seamlessly handle the secure translation urls.  The example variables below communicate to an available external acme (letsencrypt) network to properly setup this proxied environment.
+This file allows you to insert custom environmental variables, but primarily so that [ACME Companion](https://github.com/nginx-proxy/acme-companion) can be utilized to automate the creation, renewal and use of SSL certificates for proxied Docker containers through the ACME protocol.  This is useful to seamlessly handle the secure translation urls.  The example variables below communicate to an available external acme (letsencrypt) network to properly setup this proxied environment.
 
   ```
   VIRTUAL_HOST=bb.bikelover.org,en.bikelover.org,en.bb.bikelover.org,es.bb.bikelover.org,fr.bb.bikelover.org
