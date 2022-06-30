@@ -13,13 +13,35 @@ This repository creates a test environment so that we can test/fix issues before
 
 Instructions can be found in docker-compose.yml, and docker-compose.build.
 
-You may easily switch between the production and development environment.  One good reason for doing this is that some system administration tasks are handled differently in production.  For instance, mail is delayed in production.
+### After successful installation
+
+There isn't much to do until the first conference is created, but you will need an adminstrator to make that happen.
+
+First create a user for yourself at /user .  If you properly setup SMTP via docker, you will receive a confirmation email, which allows you to setup a session on your respective browser.
+
+Then go to the database container (db), and utilizing psql update your user.
+
+  `UPDATE users SET role = 'administrator' WHERE firstname = 'Jonathan Rosenbaum';`
+
+Now go to /conferences , create your first conference, and the fun begins!
+
+The commandline psql interacts with the database with 'strict' sql statements, so use single quotes around strings, not double quotes, and all should be good.
+
+Here's a good link to bring you up to speed with the power of psql:  [https://phili.pe/posts/postgresql-on-the-command-line/](https://phili.pe/posts/postgresql-on-the-command-line/)
+
+### Production and Development mode
+
+You may easily switch between the production and development environment in the .env file.  
+
+  `RAILS_ENV=production`
+
+One good reason for doing this is that some system administration tasks are handled differently in production.  For instance, mail is delayed in production.
 
 Realize you can always do things in the container .. the commands without docker-compose, or automate it all with a docker-compose script:
 
   `docker-compose exec bikebike /bin/bash`
 
-### From production to development after changing .env
+#### From production to development after changing .env
 
    ```
    docker-compose down
@@ -27,7 +49,7 @@ Realize you can always do things in the container .. the commands without docker
    rake assets:clobber
    rake assets:precompile
    ```
-### From development to production after changing .env
+#### From development to production after changing .env
 
    ```
    docker-compose down
