@@ -122,7 +122,7 @@ DEFAULT_URL={the website itself}
 
 ### After successful installation
 
-There isn't much to do until the first conference is created because you will need an adminstrator to make that happen.
+There isn't much to do until the first conference is created. But you will need an adminstrator to make that happen.
 
 First create a user for yourself at /user .  If you properly setup SMTP via docker, you will receive a confirmation email, which allows you to setup a session on your respective browser.
 
