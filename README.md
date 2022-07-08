@@ -27,7 +27,7 @@ This file allows you to insert custom environmental variables, but primarily so 
   LETSENCRYPT_EMAIL=bike@bikelover.org
   VIRTUAL_PORT=3000
   ```
-This is an example docker-compose.xml file handling the letsencrypt network.  
+This is an example docker-compose.yml file handling the letsencrypt network.  
 
 <details>
 <summary>
