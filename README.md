@@ -33,7 +33,7 @@ This is an example docker-compose.xml file handling the letsencrypt network.
 <summary>
 
 ```
-docker-compose.xml (acme-companion & nginx-proxy)
+docker-compose.yml (acme-companion & nginx-proxy)
 ```
 
 </summary>
