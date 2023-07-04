@@ -13,6 +13,18 @@ This repository creates a test environment so that we can test/fix issues before
 
 Instructions can be found in docker-compose.yml, and docker-compose.build.
 
+### Install git-lfs
+
+This repository utilizes git-lfs.  You will want git-lfs installed:
+
+`apt-get install git-lfs`
+
+then
+
+`git lfs pull`
+
+You can learn more about git-lfs commands at https://sabicalija.github.io/git-lfs-intro/ 
+
 ### About that letsencrypt network in docker-compose.yml
 
 This network provides a nginx proxy and an automatic generation of letsencrypt certificates. 
