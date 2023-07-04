@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This assume docker-compose build, which takes a long time and builds the image, has already happened, 
+# This assume docker compose build, which takes a long time and builds the image, has already happened, 
 # it should on up -d.
 # Also, you may need to remove and create the external volumes again for the steps
 # below to work correctly.
