@@ -4,9 +4,9 @@
 # it should on up -d.
 # Also, you may need to remove and create the external volumes again for the steps
 # below to work correctly.
-docker-compose up -d
-docker-compose run bikebike rake db:setup
-docker-compose run bikebike rake db:migrate 
-docker-compose run bikebike rake assets:precompile
-docker-compose down
-docker-compose up -d 
+docker compose up -d
+docker compose run bikebike rake db:setup
+docker compose run bikebike rake db:migrate 
+docker compose run bikebike rake assets:precompile
+docker compose down
+docker compose up -d 
