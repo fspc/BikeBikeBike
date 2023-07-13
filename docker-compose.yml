@@ -115,17 +115,18 @@ services:
         max-size: "10m"
         max-file: "3"
 
-# Create this volumes, docker volume create me
-# or comment our external
+# Currently set to false for all volumes for development,
+# but better strategy would be to keep or volumes true like
+# *_db
 volumes:
   bikebikebike_db:
-    external: true
+    external: false 
   bikebikebike:
-    external: true
+    external: false 
   bikebikebike_bundle:
-    external: true
+    external: false 
   bikebikebike_uploads:
-    external: true
+    external: false 
 
 # Remove this network if you don't use it
 networks:
