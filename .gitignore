@@ -81,3 +81,7 @@ brakeman.html
 /config/settings/local.rb
 /nbproject/private/
 /config/database.yml
+
+# Ignore node_module & public/stylesheets
+node_modules/*
+public/stylesheets
