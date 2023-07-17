@@ -74,12 +74,12 @@ BikeBike::Application.routes.draw do
   end
 
   # Contact
-  scope :contact do
-    root 'application#contact', as: :contact
+  # scope :contact do
+  #   root 'application#contact', as: :contact
 
-    post 'send' => 'application#contact_send', as: :contact_send
-    get 'sent' => 'application#contact_sent', as: :contact_sent
-  end
+  #   post 'send' => 'application#contact_send', as: :contact_send
+  #   get 'sent' => 'application#contact_sent', as: :contact_sent
+  # end
 
   # Static pages
   get 'about' => 'application#about', as: :about
