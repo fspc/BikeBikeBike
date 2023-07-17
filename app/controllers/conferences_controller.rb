@@ -217,13 +217,13 @@ class ConferencesController < ApplicationController
       steps -= [:hosting, :questions]
     end
 
+    if conference.city_id == 433 # if this conference is being held in the "South Pole" (it's a virtual/"Everywhere" event)
+      steps -= [:hosting, :payment, :questions] # skip hosting b/c there is none & skip payment because we're using OpenCollective
+    end
+
     return steps
   end
-      
-  if conference.city_id == 433 # if this conference is being held in the "South Pole" (it's a virtual/"Everywhere" event)
-    steps -= [:hosting, :payment, :questions] # skip hosting b/c there is none & skip payment because we're using OpenCollective
-  end
-  
+        
   def required_steps(conference = nil)
     # return the intersection of current steps and required steps
     registration_steps(conference || @this_conference || @conference) & # current steps
