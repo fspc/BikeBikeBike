@@ -23,8 +23,9 @@
           = checkboxes :languages, User.AVAILABLE_LANGUAGES, @languages, 'languages', vertical: true, heading: 'articles.workshops.headings.languages', help: 'articles.workshops.paragraphs.languages'
           = radiobuttons :theme, Workshop.all_themes, @workshop.theme, 'workshop.options.theme', vertical: true, heading: 'articles.workshops.headings.theme', help: 'articles.workshops.paragraphs.theme', other: true
         = columns(medium: 6) do
-          = checkboxes :needs, Workshop.all_needs, JSON.parse(@workshop.needs || '[]'), 'workshop.options.needs', vertical: true, heading: 'articles.workshops.headings.needs', help: 'articles.workshops.paragraphs.needs'
-          = radiobuttons :space, Workshop.all_spaces, @workshop.space, 'workshop.options.space', vertical: true, heading: 'articles.workshops.headings.space', help: 'articles.workshops.paragraphs.space'
+          - if @this_conference.city_name.present? && @this_conference.city_id != 433
+            = checkboxes :needs, Workshop.all_needs, JSON.parse(@workshop.needs || '[]'), 'workshop.options.needs', vertical: true, heading: 'articles.workshops.headings.needs', help: 'articles.workshops.paragraphs.needs'
+            = radiobuttons :space, Workshop.all_spaces, @workshop.space, 'workshop.options.space', vertical: true, heading: 'articles.workshops.headings.space', help: 'articles.workshops.paragraphs.space'
 
           %h3#needs_facilitators-label=_'articles.workshops.headings.needs_facilitators','Looking for help?'
           .input-field-help#needs_facilitators-desc=_'articles.workshops.paragraphs.needs_facilitators', :s, 2

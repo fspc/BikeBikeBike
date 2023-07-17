@@ -76,7 +76,14 @@
               - if guest.housing_data['other'].present?
                 %td{colspan: 3, lang: guest.user.locale.to_s == I18n.locale.to_s ? nil : guest.user.locale}
                   = paragraph guest.housing_data['other']
-      
+
+= row do
+  = columns(medium: 12) do
+    - if @this_conference.city_name.present? && @this_conference.city_id == 433
+      - if @this_conference.payment_message.present?
+        = richtext @this_conference.payment_message
+      %iframe{:src => "https://opencollective.com/embed/bikebike-everywhere/donate?amount=30&email=#{current_user.email}&name=#{current_user.firstname} #{current_user.lastname}", :style => "width: 100%; min-height: 100vh;"}
+
 - if @this_conference.registration_open
   = row do
     = columns(medium: 12) do

@@ -17,7 +17,9 @@
       = signin_link
   %ul.locales
   .site-info
-    .contact-us=link_to (_'links.footer.help_text.contact'), contact_path, id: 'contact-link'
+    -# Commented the line below because the contact form was getting so much spam it was overwhelming the gmail smtp service
+    -#.contact-us=link_to (_'links.footer.help_text.contact'), contact_path, id: 'contact-link'
+    .contact-us=link_to 'bikebikeeverywhere@gmail.com', 'mailto:bikebikeeverywhere@gmail.com', id: 'contact-link'
     .copy
       =_'links.footer.help_text.contributors', 'Who contributed to building this website' do |title|
         =link_to :humans_txt, {title: title} do
