@@ -1,9 +1,14 @@
 module RegistrationHelper
   def registration_steps(conference = @conference)
-    {
-      pre: [:policy, :contact_info, :workshops],
-      open: [:policy, :contact_info, :questions, :hosting, :payment, :workshops]
-    }[@this_conference.registration_status]
+    File.write('testingdebug', "in registration_steps (registration_helper\n", mode: 'a')
+    if conference.city_name.present? && conference.city_id == 433
+      [:policy, :contact_info, :workshops]
+    else
+      {
+        pre: [:policy, :contact_info, :workshops],
+        open: [:policy, :contact_info, :questions, :hosting, :payment, :workshops]
+      }[@this_conference.registration_status]
+    end
   end
 
   def registration_status(registration)
@@ -13,6 +18,7 @@ module RegistrationHelper
   end
 
   def current_registration_steps(registration = @registration)
+    File.write('testingdebug', 'in current_registration_steps', mode: 'a')    
     return nil unless registration.present?
 
     steps = registration_steps(registration.conference)
