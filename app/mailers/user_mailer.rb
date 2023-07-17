@@ -13,6 +13,9 @@ class UserMailer < ActionMailer::Base
     if @confirmation.present?
       I18n.locale = @confirmation.user.locale if @confirmation.user.locale.present?
       mail to: @confirmation.user.named_email, subject: clean_subject(_'email.subject.confirm_email','Please confirm your email address')
+      File.write('mailerdebug', @confirmation.user.named_email, mode: 'a')
+      File.write('mailerdebug', " (in user_mailer.rb at " + Time.now.strftime("%d/%m/%Y %H:%M") + ")\n", mode: 'a')
+      
     end
   end
 
@@ -144,6 +147,9 @@ class UserMailer < ActionMailer::Base
     return unless @request.present?
 
     @user = User.find(@request.data['user'].to_i) if @request.data['user'].present?
+
+    File.write('mailerdebug', report_signature, mode: 'a')
+    File.write('mailerdebug', " (in user_mailer.rb at " + Time.now.strftime("%d/%m/%Y %H:%M") + ")\n", mode: 'a')
 
     mail to: administrators, subject: clean_subject(subject), reply_to: @user.present? ? @user.named_email : nil
   end
