@@ -2,17 +2,20 @@
 #
 # ENV DATABASE_URL string = https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING
 #
-# docker-compose up -d
-# docker-compose run bikebike rake db:setup
-# docker-compose run bikebike rake db:migrate 
-# docker-compose run bikebike rake assets:precompile
-# docker-compose down
-# docker-compose up 
+# docker-compose.build:
 #
-# don't do this because new sprockets and manifest.js isn't precompiling to *css, and breaks the container
+# docker compose up -d
+# docker compose run --rm bikebike rake db:setup
+# docker compose run --rm bikebike rake db:migrate 
+# docker compose run --rm bikebike rake assets:precompile
+# docker compose down
+# docker compose up -d 
+#
+# Never do this because new sprockets and manifest.js isn't precompiling to *css, and breaks the container
 #  -- docker-compose run bikebike rake bumbleberry:update --
-
-version: '3'
+#
+# This is why we resort to git lfs, and utilize precompiled css, 
+# which is updated as requuired to newest modern browsers with caniuse.js 
 
 services:
 
@@ -115,9 +118,7 @@ services:
         max-size: "10m"
         max-file: "3"
 
-# Currently set to false for all volumes for development,
-# but better strategy would be to keep or volumes true like
-# *_db
+# Currently set to false for all volumes for development
 volumes:
   bikebikebike_db:
     external: false 

@@ -8,7 +8,7 @@ MAINTAINER Jonathan Rosenbaum <bike@bikelover.org>
 
 COPY . /app/BikeBike
 
-RUN apt-get update && apt-get install -y  nodejs postgresql-client vim less 
+RUN apt-get update && apt-get install -y  nodejs postgresql-client vim less git-lfs 
 
 RUN curl -fsSL https://get.pnpm.io/install.sh | bash - && /root/.local/share/pnpm/pnpm add browserslist
 
