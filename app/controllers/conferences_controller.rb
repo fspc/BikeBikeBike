@@ -2,6 +2,37 @@ require 'geocoder/calculations'
 require 'rest_client'
 require 'registration_controller_helper'
 
+module RegistrationSteps
+  def available_steps(registration = self)
+   
+    if conference.city_name.present? && Conference.find_by(id: registration.conference_id).city_id == 433
+      all_southpole_steps = [
+        :policy,       # agree to the policy
+        :name,         # enter your name
+        :languages,    # select spoken languages
+
+        :org_member,   # Do you work for or volunteer with a bike collective?
+        :org_location, # Where is your collective located?
+        :org_location_confirm,    # Confirm your location
+        :org_non_member_interest, # What is your interest in attending Bike!Bike!?
+        :org_select,         # Which organization in [city] are you associated with?
+        :org_create_name,    # What is the name of your organization?
+        :org_create_address, # Where in [city] is your organization located?
+        :org_create_email,   # What is the organization's email address
+        :org_create_mailing_address, # How can we contact your organization by snail mail?
+
+        :housing_arrival_date,    # When will you be arriving in [city]?
+        :housing_departure_date,  # When are you planning to leave [city]?
+
+        :review
+      ]
+      available = all_southpole_steps.select { |step| send("#{step}_available?", registration) }
+    else+      available = RegistrationSteps.all_registration_steps.select { |step| send("#{step}_available?", registration) }
+    end
+    return available
+  end
+end
+
 class ConferencesController < ApplicationController
   include RegistrationControllerHelper
 
@@ -158,6 +189,7 @@ class ConferencesController < ApplicationController
   helper_method :registration_complete?
 
   def registration_steps(conference = nil)
+    File.write('testingdebug', "in registration_steps (conferences_controller_\n", mode: 'a')
     conference ||= @this_conference || @conference
     status = conference.registration_status
 
@@ -187,7 +219,11 @@ class ConferencesController < ApplicationController
 
     return steps
   end
-
+      
+  if conference.city_id == 433 # if this conference is being held in the "South Pole" (it's a virtual/"Everywhere" event)
+    steps -= [:hosting, :payment, :questions] # skip hosting b/c there is none & skip payment because we're using OpenCollective
+  end
+  
   def required_steps(conference = nil)
     # return the intersection of current steps and required steps
     registration_steps(conference || @this_conference || @conference) & # current steps
