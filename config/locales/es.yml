@@ -1550,7 +1550,8 @@ es:
         housing_arrival_date: Cuándo llegarás a %{city}? Si vas a llegar a la ciudad
           antes de %{min_date} y necesitas hospedaje o una bici, por favor selecciona
           la fecha en el calendario que está abajo y contáctanos después de que termines
-          tu registro. No podemos garantizarte hospedaje, pero haremos lo posible.
+          tu registro. No podemos garantizarte hospedaje, pero haremos lo posible.  
+          (Para conferencias virtuales seleccione el primer día que esté disponible.)
         housing_bike: Para hacernos una idea de cuántas bicicletas necesitamos preparar,
           por favor avísanos si te gustaría que te prestáramos una bicicleta.
         housing_companion_check: Viajas con tu pareja o con alguien que definitivamente
@@ -1562,7 +1563,8 @@ es:
           tiempo y necesitas hospedaje o una bici después de %{max_date}, por favor
           selecciona las fechas en el calendario de bajo y contáctanos después de
           concluir tu registro. No podemos garantizarte hospedaje pero haremos lo
-          posible.
+          posible.  
+          (Para conferencias virtuales seleccione el ultimo día que esté disponible.)
         housing_food: Por favor cuéntanos de tus hábitos alimenticios seleccionando
           la opción que mejor describa el tipo de comida que comes. Usaremos esto
           para decidir el tipo de comidas que prepararemos y la cantidad de alimentos

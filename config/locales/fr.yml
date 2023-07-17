@@ -1376,13 +1376,15 @@ fr:
           et que vous avez besoin d’un hébergement ou d’un vélo avant %{min_date},
           veuillez sélectionnez vos dates dans le calendrier ci-dessous et nous contacter
           afin de compléter votre inscription. Nous ne pouvons garantir que nous pourrons
-          vous accommoder, mais nous ferons de notre mieux.
+          vous accommoder, mais nous ferons de notre mieux.  
+          (Pour les conférences virtuelles, sélectionnez le premier jour où vous êtes disponible.)
         housing_departure_date: Quand allez-vous quitter %{city}? Si vous voulez rester
           plus longtemps et que vous avez besoin d'un hébergement et d'un vélo après
           %{max_date}, veuillez sélectionner cette date dans le calendrier ci-dessous
           et nous joindre une fois que vous avez fini de vous inscrire. Nous ne pouvons
           vous promettre un hébergement, mais nous ferons notre possible pour vous
-          aider.
+          aider.  
+          (Pour les conférences virtuelles, sélectionnez le dernier jour où vous êtes disponible.)
         housing_food: Veuillez nous renseigner sur vos habitudes alimentaires en choisissant
           l'option qui vous correspond le mieux. Cela nous aidera à préparer de meilleurs
           repas et à prévoir des quantités de nourriture adaptées.

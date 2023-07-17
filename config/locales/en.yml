@@ -1946,7 +1946,7 @@ en:
           to populate the list of known organizations that will be displayed on bikecollectives.org.
           If you are involved with multiple organizations, please select one for now,
           you will be able to add more organizations at a later date.
-        payment_type: If you can, please pay now via PayPal. We collect the registration
+        payment_type: If you can, please pay now online. We collect the registration
           fee as a donation. Your donation pays for spaces, food, equipment, and much
           more. Paying now enables us to prepare for the conference without paying
           out of our own pockets. Otherwise, please pledge to pay on arrival. Your
@@ -1972,11 +1972,13 @@ en:
         housing_departure_date: When will you be leaving %{city}? If you wish to stay
           in town longer and need housing or a bike after %{max_date}, please select
           this date on the calendar below and contact us after you complete your registration.
-          We cannot guarantee that we can accommodate you but we will do our best.
+          We cannot guarantee that we can accommodate you but we will do our best.  
+          (For virtual conferences select the last day you are available.)
         housing_arrival_date: When will you be arriving in %{city}? If you will be
           in town and need housing or a bike before %{min_date}, please select this
           date on the calendar below and contact us after you complete your registration.
-          We cannot guarantee that we can accommodate you but we will do our best.
+          We cannot guarantee that we can accommodate you but we will do our best.  
+          (For virtual conferences select the first day you are available.)
         org_create_mailing_address: Please provide the organization's mailing address
           so that we can send your organization a personal invite and poster for next
           year's Bike!Bike!.
@@ -2438,7 +2440,7 @@ en:
         reopen_registration: Re-open my registration
         cancel_registration: Cancel my registration
         organization_none: None of the above
-        payment_paypal: I can pay now with PayPal
+        payment_paypal: I can pay now online
         payment_on_arrival: I can pledge to pay on arrival
         payment_none: Not now
         food_meat: I eat meat and dairy
