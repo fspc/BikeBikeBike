@@ -4,7 +4,17 @@
 	Twitter: @__Godwin__
 	From:Seattle, Washington, USA
 
-	Other Developers:See our Github
+	Senior System Administrator, Developer and Dockerizer: Jonathan Rosenbaum
+	Contact: bike [at] bikelover.org
+	From:Morgantown, West Virginia, USA
+
+	Tech Tinkerer and Developer: April Wick
+	Contact: darin [at] darinwick.com
+
+	Current Developers: See our new Git with lfs
+	Website: https://git.bikeshopi.dev/bike/BikeBikeBike/
+
+	Other Historic Developers:See our Github
 	Website: https://github.com/bikebike/BikeBike
 
 	Primary ES Translators:Jim Mayerstein; Ollin Monroy
@@ -19,7 +29,7 @@
 	Thanks to everyone else who contributed translations, code, copy, photography, and general support!
 
 /* SITE */
-	Last update:2015/09/15
+	Last update:2023/07/18
 	Language: English
 	Doctype:HTML5
-	IDE: Sublime Text, Photoshop
+	IDE: Visual Studio Code, Sublime Text, Photoshop
