@@ -16,6 +16,8 @@
 #
 # This is why we resort to git lfs, and utilize precompiled css, 
 # which is updated as requuired to newest modern browsers with caniuse.js 
+#
+# exporting database:  pg_dump -c -U bike_bike bike_bike > bike_bike.sql
 
 services:
 
