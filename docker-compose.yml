@@ -108,11 +108,16 @@ services:
       - bikebikebike:/app/BikeBike
       - bikebikebike_bundle:/usr/local/bundle
       - bikebikebike_uploads:/app/BikeBike/public/uploads
-    build: .
     expose:
       - "3000"
     links:
       - db
+    labels:
+      ofelia.enabled: "true" # in rss2email      
+      ofelia.job-exec.bikebike-job.schedule: "@every 6h"
+      ofelia.job-exec.bikebike-job.container: "bikebikebike"
+      ofelia.job-exec.bikebike-job.command: "/app/BikeBike/caniuse.js"
+      ofelia.job-exec.bikebike-job.user: "root:root"      
     restart: always
     logging:
       driver: "json-file"  

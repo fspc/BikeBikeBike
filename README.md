@@ -148,6 +148,53 @@ The commandline psql interacts with the database with 'strict' sql statements, s
 
 Here's a good link to bring you up to speed with the power of psql:  [https://phili.pe/posts/postgresql-on-the-command-line/](https://phili.pe/posts/postgresql-on-the-command-line/)
 
+### Job Scheduler for caniuse.js
+
+[Caniuse.js](caniuse.js) uses browserslist to query the caniuse-lite database.  This is the substitute program for the now defunct Bumbleberry.  Ofelia is used as an independent scheduler, and ofelia labels in [services](docker-compose.yml)  establish the job requirements.
+
+<details>
+
+<summary>
+
+```
+docker-compose.yml for Ofelia job scheduler
+```
+
+</summary>
+
+```
+# This service provides ofelia, which is a job scheduler (cron).
+# 
+# There should be at least on job in one of the services to make this 
+# meaningfull to run.
+# 
+# It is accessible everywhere since it is bound to the docker socket.
+# Cron jobs can be conveniently created with labels.
+#
+# https://github.com/mcuadros/ofelia
+#
+# When you add/change a cron job simply -
+# docker compose down
+# docker compose up -d
+
+services:
+  ofelia:
+    container_name: ofelia
+    image: mcuadros/ofelia:latest
+    command: daemon --docker
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+```
+
+</details>
+
+
 ### Production and Development mode
 
 You may easily switch between the production and development environment in the .env file.  
