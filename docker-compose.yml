@@ -22,7 +22,7 @@
 services:
 
   redis:
-    container_name: bikebikebike-redis
+    # container_name: bikebikebike-redis
     image: redis:6.2-alpine 
     ports:
       - "6379"
@@ -38,7 +38,7 @@ services:
   # Run sidekiq as it's own process using the same image that bikbike uses!
   sidekiq:
     image: bikebikebike 
-    container_name: bikebikebike-sidekiq
+    # container_name: bikebikebike-sidekiq
     command: sidekiq -q production
     environment:
       - REDIS_URL=redis://redis:6379
@@ -61,7 +61,7 @@ services:
         max-file: "3"
 
   db:
-    container_name: bikebikebike-db
+    # container_name: bikebikebike-db
     image: postgres:9.5
     ports:
       - "5432"
@@ -81,7 +81,7 @@ services:
   bikebike:
     build: .
     image: bikebikebike
-    container_name: bikebikebike
+    # container_name: bikebikebike
     networks:
       letsencrypt:
       default: 
@@ -114,10 +114,10 @@ services:
       - db
     labels:
       ofelia.enabled: "true" # in rss2email      
-      ofelia.job-exec.bikebike-job.schedule: "@every 6h"
-      ofelia.job-exec.bikebike-job.container: "bikebikebike"
-      ofelia.job-exec.bikebike-job.command: "/app/BikeBike/caniuse.js"
-      ofelia.job-exec.bikebike-job.user: "root:root"      
+      ofelia.job-exec.bikebikebike-job.schedule: "@every 6h"
+      ofelia.job-exec.bikebikebike-job.container: "bikebikebike"
+      ofelia.job-exec.bikebikebike-job.command: "/app/BikeBike/caniuse.js"
+      ofelia.job-exec.bikebikebike-job.user: "root:root"      
     restart: always
     logging:
       driver: "json-file"  

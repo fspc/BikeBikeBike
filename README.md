@@ -174,8 +174,7 @@ docker-compose.yml for Ofelia job scheduler
 # https://github.com/mcuadros/ofelia
 #
 # When you add/change a cron job simply -
-# docker compose down
-# docker compose up -d
+# docker compose restart
 
 services:
   ofelia:
