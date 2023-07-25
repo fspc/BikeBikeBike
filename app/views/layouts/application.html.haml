@@ -20,7 +20,7 @@
       %meta{property: 'og:type', content: 'website'}
       %meta{property: 'og:image', content: og_image}
     %meta{name: "theme-color", content: @theme_colour}
-    %script{src: "https://www.google.com/recaptcha/api.js?render=6LcWZFAnAAAAANKko--rHWo2iAkfGdcbkHKtF1-A}" }
+    %script{src: "https://www.google.com/recaptcha/api.js?render=#{ENV['RECAPTCHA_SITE_KEY']}" }
     = yield :head
 
   %body{ class: page_style }
