@@ -8,7 +8,7 @@ class ApplicationController < BaseController
 
   helper_method :protect, :policies
 
-  RECAPTCHA_MINIMUM_SCORE = 0.5
+  RECAPTCHA_MINIMUM_SCORE = 1.0
 
   def verify_recaptcha?(token, recaptcha_action)
     recaptcha_secret_key = config.app_config['recaptcha_secret_key']
