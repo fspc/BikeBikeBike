@@ -20,6 +20,7 @@
       %meta{property: 'og:type', content: 'website'}
       %meta{property: 'og:image', content: og_image}
     %meta{name: "theme-color", content: @theme_colour}
+    %script{src: "https://www.google.com/recaptcha/api.js?render=6LcWZFAnAAAAANKko--rHWo2iAkfGdcbkHKtF1-A}" }
     = yield :head
 
   %body{ class: page_style }
@@ -53,7 +54,7 @@
             .dlg-inner
               %p.message=''
               %a.button.confirm=_'modals.yes_button'
-              %button.delete.close=_'modals.no_button'
+              %button.delete.close=_'modals.no_button'            
       - if @info_dlg.present?
         .dlg#info-dlg
           .dlg-content
@@ -69,6 +70,8 @@
               .message=''
               %button.close=_'modals.done_button'
       - if @login_dlg.present?
+        = content_for :recaptcha_js do
+          = include_recaptcha_js        
         .dlg#login-dlg
           .dlg-content
             %h2.title=_'forms.actions.generic.login'
@@ -77,10 +80,11 @@
                 = hidden_field_tag :dest, settings_path
                 = emailfield :email, nil, big: true
                 = button :continue, value: :confirm_email
+                = recaptcha_execute('sign_in')
               .flex-form
                 = link_to (_'forms.actions.generic.facebook_sign_in','Facebook Sign In'), auth_at_provider_path(provider: :facebook, dest: settings_path), class: [:button, :facebook]
                 %button.close.subdued=_'forms.actions.generic.cancel'
-    
+
       - if @event_dlg.present?
         .event-dlg#event-dlg{ data: { type: :event } }
           .event-details

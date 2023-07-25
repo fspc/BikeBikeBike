@@ -1,3 +1,5 @@
+require 'net/https'
+
 class ApplicationController < BaseController
   protect_from_forgery with: :exception, except: [:do_confirm, :js_error, :admin_update]
 
@@ -5,6 +7,17 @@ class ApplicationController < BaseController
   after_filter  :capture_page_info
 
   helper_method :protect, :policies
+
+  RECAPTCHA_MINIMUM_SCORE = 0.5
+
+  def verify_recaptcha?(token, recaptcha_action)
+    recaptcha_secret_key = config.app_config['recaptcha_secret_key']
+
+    uri = URI.parse("https://www.google.com/recaptcha/api/siteverify?secret=#{recaptcha_secret_key}&response=#{token}")
+    response = Net::HTTP.get_response(uri)
+    json = JSON.parse(response.body)
+    json['success'] && json['score'] > RECAPTCHA_MINIMUM_SCORE && json['action'] == recaptcha_action
+  end
 
   def default_url_options
     { host: "#{request.protocol}#{request.host_with_port}", trailing_slash: true }

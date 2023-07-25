@@ -10,6 +10,8 @@ module ApplicationHelper
   include TableHelper
   include AdminHelper
 
+  RECAPTCHA_SITE_KEY = ENV['RECAPTCH_SITE_KEY']
+
   def is_production?
     Rails.env == 'production' || Rails.env == 'preview'
   end
@@ -21,4 +23,26 @@ module ApplicationHelper
   def generate_confirmation(user, url, expiry = nil)
     ApplicationController::generate_confirmation(user, url, expiry)
   end
+  
+  def include_recaptcha_js
+    raw %Q{
+      <script src="https://www.google.com/recaptcha/api.js?render=#{RECAPTCHA_SITE_KEY}"></script>
+    }
+  end
+
+  def recaptcha_execute(action)
+    id = "recaptcha_token_#{SecureRandom.hex(10)}"
+
+    raw %Q{
+      <input name="recaptcha_token" type="hidden" id="#{id}"/>
+      <script>
+        grecaptcha.ready(function() {
+          grecaptcha.execute('#{RECAPTCHA_SITE_KEY}', {action: '#{action}'}).then(function(token) {
+            document.getElementById("#{id}").value = token;
+          });
+        });
+      </script>
+    }
+  end
+
 end

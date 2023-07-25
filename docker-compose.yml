@@ -104,6 +104,8 @@ services:
       - ADMIN_EMAIL=${ADMIN_EMAIL:-info@bikebike.org}
       - DEFAULT_URL=${DEFAULT_URL:-bikebike.org}
       - REDIS_URL=redis://redis:6379
+      - RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY:-123456789}
+      - RECAPTCHA_SITE_KEY=${RECAPTCHA_SITE_KEY:-123456789}      
     volumes:
       - bikebikebike:/app/BikeBike
       - bikebikebike_bundle:/usr/local/bundle
