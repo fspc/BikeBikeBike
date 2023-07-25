@@ -8,6 +8,7 @@
       = email_field_tag :email, nil, required: true
       = label_tag :email
     = button :continue, value: :confirm_email
+    = recaptcha_execute('conferences_confirm')
 = columns(medium: 12, class: 'flex-column') do
   %p.stretch-item=_'articles.conference_registration.paragraphs.facebook_sign_in'
   = link_to (_'forms.actions.generic.facebook_sign_in','Facebook Sign In'), auth_at_provider_path(:provider => :facebook), class: [:button, :facebook]
