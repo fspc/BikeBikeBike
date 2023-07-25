@@ -8,15 +8,16 @@ class ApplicationController < BaseController
 
   helper_method :protect, :policies
 
-  RECAPTCHA_MINIMUM_SCORE = 1.0
+  RECAPTCHA_MINIMUM_SCORE = 0.5
 
   def verify_recaptcha?(token, recaptcha_action)
-    recaptcha_secret_key = config.app_config['recaptcha_secret_key']
+    recaptcha_secret_key = ENV['RECAPTCHA_SECRET_KEY']
 
     uri = URI.parse("https://www.google.com/recaptcha/api/siteverify?secret=#{recaptcha_secret_key}&response=#{token}")
     response = Net::HTTP.get_response(uri)
     json = JSON.parse(response.body)
-    json['success'] && json['score'] > RECAPTCHA_MINIMUM_SCORE && json['action'] == recaptcha_action
+    # json['success'] && json['score'] > RECAPTCHA_MINIMUM_SCORE && json['action'] == recaptcha_action
+    json['success'] && json['score'] > RECAPTCHA_MINIMUM_SCORE
   end
 
   def default_url_options
@@ -114,6 +115,7 @@ class ApplicationController < BaseController
   end
 
   def confirmation_sent(user)
+    
     template = 'login_confirmation_sent'
     @page_title ||= 'page_titles.403.Please_Check_Email'
 
@@ -654,6 +656,14 @@ class ApplicationController < BaseController
 
     # send the confirmation email and make sure it get sent as quickly as possible
     def send_confirmation(confirmation)
+
+      puts = lookup_context.find_all(params[:action], params[:controller]).inspect 
+
+      unless verify_recaptcha?(params[:recaptcha_token], 'sign_in')
+        flash.now[:error] = 'recaptcha.errors.verification_failed'
+        return render 'about'
+      end
+  
       send_mail(:email_confirmation, confirmation.id)
     end
 
