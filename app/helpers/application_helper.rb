@@ -10,7 +10,7 @@ module ApplicationHelper
   include TableHelper
   include AdminHelper
 
-  RECAPTCHA_SITE_KEY = ENV['RECAPTCH_SITE_KEY']
+  RECAPTCHA_SITE_KEY = ENV['RECAPTCHA_SITE_KEY']
 
   def is_production?
     Rails.env == 'production' || Rails.env == 'preview'

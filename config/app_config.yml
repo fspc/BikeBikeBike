@@ -7,7 +7,7 @@ default: &default
   smtp_ssl: <%= ENV['SMTP_SSL'] %>
   default_url: <%= ENV['DEFAULT_URL'] %>
   recaptcha_secret_key: <%= ENV['RECAPTCHA_SECRET_KEY'] %>
-  recaptcha_site_key: 'hello'
+  recaptcha_site_key: <%= ENV['RECAPTCHA_SITE_KEY'] %>
 
 development:
   <<: *default
