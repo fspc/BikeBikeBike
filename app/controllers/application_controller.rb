@@ -17,6 +17,7 @@ class ApplicationController < BaseController
     response = Net::HTTP.get_response(uri)
     json = JSON.parse(response.body)
     # json['success'] && json['score'] > RECAPTCHA_MINIMUM_SCORE && json['action'] == recaptcha_action
+    puts json.inspect
     json['success'] && json['score'] > RECAPTCHA_MINIMUM_SCORE
   end
 
@@ -657,7 +658,7 @@ class ApplicationController < BaseController
     # send the confirmation email and make sure it get sent as quickly as possible
     def send_confirmation(confirmation)
 
-      puts = lookup_context.find_all(params[:action], params[:controller]).inspect 
+      # puts lookup_context.find_all(params[:action], params[:controller]).inspect 
 
       unless verify_recaptcha?(params[:recaptcha_token], 'sign_in')
         flash.now[:error] = 'recaptcha.errors.verification_failed'
