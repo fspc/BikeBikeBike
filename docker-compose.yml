@@ -114,12 +114,17 @@ services:
       - "3000"
     links:
       - db
+    # Make sure to rename container to what is being used 
     labels:
       ofelia.enabled: "true" # in rss2email      
-      ofelia.job-exec.bikebikebike-job.schedule: "@every 6h"
-      ofelia.job-exec.bikebikebike-job.container: "bikebikebike"
-      ofelia.job-exec.bikebikebike-job.command: "/app/BikeBike/caniuse.js"
-      ofelia.job-exec.bikebikebike-job.user: "root:root"      
+      ofelia.job-exec.bikebikebike-caniuse.schedule: "@every 6h"
+      ofelia.job-exec.bikebikebike-caniuse.container: "bikebikebike"
+      ofelia.job-exec.bikebikebike-caniuse.command: "/app/BikeBike/caniuse.js"
+      ofelia.job-exec.bikebikebike-.user: "root:root"
+      ofelia.job-exec.bikebikebike-browserlist.schedule: "@every 24h"
+      ofelia.job-exec.bikebikebike-browserlist.container: "bikebikebike"
+      ofelia.job-exec.bikebikebike-browserlist.command: "/root/.local/share/pnpm/pnpm update browserlist@latest"
+      ofelia.job-exec.bikebikebike-browserlist.user: "root:root"
     restart: always
     logging:
       driver: "json-file"  
