@@ -27,7 +27,7 @@ module RegistrationSteps
         :review
       ]
       available = all_southpole_steps.select { |step| send("#{step}_available?", registration) }
-    else+      available = RegistrationSteps.all_registration_steps.select { |step| send("#{step}_available?", registration) }
+    else      available = RegistrationSteps.all_registration_steps.select { |step| send("#{step}_available?", registration) }
     end
     return available
   end
