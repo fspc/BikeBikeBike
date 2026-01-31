@@ -1,6 +1,5 @@
 {
 	"dependencies": {
-		"browserslist": "^4.22.2",
-		"npx": "^10.2.2"
+		"browserslist": "^4.28.1"
 	}
 }
