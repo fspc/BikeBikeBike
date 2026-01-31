@@ -1850,6 +1850,7 @@ fr:
         'no': Non
         maybe: Peut-être
         payment_paypal: Je peux payer à l'instant avec Paypal
+        payment_paypal_fallback: Je peux payer via un lien fourni par l'hôte
         food_vegan: Je suis végétalien
         food_vegetarian: Je suis végétarien
         food_meat: Je mange de la viande et des produits laitiers

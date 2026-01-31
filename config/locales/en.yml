@@ -2441,6 +2441,7 @@ en:
         cancel_registration: Cancel my registration
         organization_none: None of the above
         payment_paypal: I can pay now online
+        payment_paypal_fallback: I can pay via host provided link
         payment_on_arrival: I can pledge to pay on arrival
         payment_none: Not now
         food_meat: I eat meat and dairy

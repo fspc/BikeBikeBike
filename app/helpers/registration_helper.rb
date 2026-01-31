@@ -32,7 +32,6 @@ module RegistrationHelper
       steps -= [:hosting]
     end
 
-    steps -= [:payment] unless registration.conference.paypal_email_address.present? && registration.conference.paypal_username.present? && registration.conference.paypal_password.present? && registration.conference.paypal_signature.present?
     steps -= [:payment, :workshops] if registration.is_attending == 'n'
     
     steps.each do |step|

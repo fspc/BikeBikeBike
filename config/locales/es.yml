@@ -2011,6 +2011,7 @@ es:
         payment_none: Por ahora no
         payment_on_arrival: Puedo comprometerme a pagar a mi llegada
         payment_paypal: Puedo pagar ahora con Paypal
+        payment_paypal_fallback: Puedo pagar mediante un enlace proporcionado por el anfitrión
         reopen_registration: Re-abrir mi registro
         review: Revisar
         'yes': Sí
