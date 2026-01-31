@@ -69,9 +69,7 @@
             .dlg-inner
               .message=''
               %button.close=_'modals.done_button'
-      - if @login_dlg.present?
-        = content_for :recaptcha_js do
-          = include_recaptcha_js        
+      - if @login_dlg.present?     
         .dlg#login-dlg
           .dlg-content
             %h2.title=_'forms.actions.generic.login'

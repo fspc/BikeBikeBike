@@ -36,11 +36,23 @@ module ApplicationHelper
     raw %Q{
       <input name="recaptcha_token" type="hidden" id="#{id}"/>
       <script>
-        grecaptcha.ready(function() {
-          grecaptcha.execute('#{RECAPTCHA_SITE_KEY}', {action: '#{action}'}).then(function(token) {
-            document.getElementById("#{id}").value = token;
+        if (typeof grecaptcha !== 'undefined') {
+          grecaptcha.ready(function() {
+            grecaptcha.execute('#{RECAPTCHA_SITE_KEY}', {action: '#{action}'}).then(function(token) {
+              document.getElementById("#{id}").value = token;
+            }).catch(function(error) {
+              console.error('reCAPTCHA execution error:', error);
+            });
           });
-        });
+        } else {
+          document.addEventListener('grecaptcha-ready', function() {
+            grecaptcha.execute('#{RECAPTCHA_SITE_KEY}', {action: '#{action}'}).then(function(token) {
+              document.getElementById("#{id}").value = token;
+            }).catch(function(error) {
+              console.error('reCAPTCHA execution error:', error);
+            });
+          });
+        }
       </script>
     }
   end
