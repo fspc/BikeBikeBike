@@ -9,7 +9,7 @@
 	From:Morgantown, West Virginia, USA
 
 	Tech Tinkerer and Developer: April Wick
-	Contact: darin [at] darinwick.com
+	Contact: april [at] aprilwick.com
 
 	Current Developers: See our new Git with lfs
 	Website: https://git.bikeshopi.dev/bike/BikeBikeBike/
