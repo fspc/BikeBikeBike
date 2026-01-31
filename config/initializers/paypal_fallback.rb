@@ -1,45 +1,91 @@
 # Monkey-patch for bikecollectives_core gem to gracefully handle missing PayPal credentials
-# This allows the payment flow to work without PayPal configured
+# This allows users to select "I can pay via host provided link" when PayPal isn't configured
 if defined?(RegistrationControllerHelper)
   module PayPalFallback
     def paypal_configured?(conference)
       conference.paypal_email_address.present? &&
-      valid_paypal_credential?(conference.paypal_username) &&
-      valid_paypal_credential?(conference.paypal_password) &&
-      valid_paypal_credential?(conference.paypal_signature)
+      conference.paypal_username.present? &&
+      conference.paypal_password.present? &&
+      conference.paypal_signature.present?
     end
-    def valid_paypal_credential?(value)
-      value.present? && value.strip.present?
-    end
-    def payment_type_step_update(registration, params)
+
+    def payment_type_step(registration)
       conference = registration.conference
-      payment_type = params[:value].try(:to_sym)
-      if !paypal_configured?(conference) && payment_type == :paypal
-        registration.data ||= {}
-        registration.data['payment_method'] = 'paypal'
-        registration.save!
-        return { status: :complete }
+      payment_method = (registration.data || {})['payment_method']
+      
+      available_methods = ConferenceRegistration.all_payment_methods.dup
+      available_methods.delete(:paypal) unless paypal_configured?(conference)
+      
+      if !paypal_configured?(conference) && payment_method == 'paypal'
+        payment_method = 'host_payment'
       end
+      
+      {
+        payment_method: payment_method,
+        payment_methods: available_methods
+      }
+    end
+
+    def payment_type_step_update(registration, params)
+      return { status: :complete } if params[:button] == 'back'
+
+      conference = registration.conference
+      payment_type = params[:button].try(:to_sym)
+      
+      available_methods = ConferenceRegistration.all_payment_methods.dup
+      available_methods.delete(:paypal) unless paypal_configured?(conference)
+      
+      unless available_methods.include?(payment_type)
+        raise "Invalid payment type #{params[:button]}"
+      end
+
+      registration.data ||= {}
+      registration.data['payment_method'] = payment_type.to_s
+      registration.save!
+      { status: :complete }
+    end
+
+    def payment_form_step(registration)
+      payment_method = (registration.data || {})['payment_method'].present? ? registration.data['payment_method'].to_sym : nil
+
+      if payment_method == :host_payment
+        return {
+          method: payment_method,
+          amount: (registration.data || {})['payment_amount'],
+          amounts: registration.conference.payment_amounts || Conference.default_payment_amounts,
+          currencies: [registration.conference.default_currency],
+          currency: registration.conference.default_currency,
+          no_ajax: true,
+          show_amount_form: true
+        }
+      end
+
       super
     end
+
     def payment_form_step_update(registration, params)
-      conference = registration.conference
-      username = conference.paypal_username
-      password = conference.paypal_password
-      signature = conference.paypal_signature
-      unless valid_paypal_credential?(username) && valid_paypal_credential?(password) && valid_paypal_credential?(signature)
-        Rails.logger.warn "[PayPalFallback] Missing or invalid PayPal credentials for conference #{conference.id}. Username: #{username.present?}, Password: #{password.present?}, Signature: #{signature.present?}"
+      payment_method = (registration.data || {})['payment_method'].to_sym
+
+      if payment_method == :host_payment
+        if params[:button] == 'back' || params[:button] == 'review'
+          return { status: :complete }
+        end
+
         value = (params[:value] || params[:custom_value] || 0).to_f
-        currency = conference.default_currency
+        unless value > 0
+          return {
+            status: :error,
+            message: 'amount_required'
+          }
+        end
+
         registration.data ||= {}
         registration.data['payment_amount'] = value
-        registration.payment_info = {
-          amount: value,
-          currency: currency
-        }.to_yaml
+        registration.data['payment_status'] = 'pending_manual'
         registration.save!
-        return { status: :complete }
+        return { status: :complete, message: 'manual_payment_pending' }
       end
+
       super
     end
   end

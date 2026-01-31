@@ -1860,7 +1860,8 @@ fr:
         back: Retour
         'yes': Oui
         review: Revoir
-        payment_on_arrival: Je m’engage à payer après mon arrivée
+        payment_on_arrival: Je m'engage à payer après mon arrivée
+        payment_on_arrival_with_link: Je m'engage à payer à mon arrivée ou via un lien fourni par l'hôte
         organization_none: Aucune
         housing_tent: Je voudrais un emplacement pour planter ma tente
         housing_none: Je n’ai pas besoin d’un hébergement

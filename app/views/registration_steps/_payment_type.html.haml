@@ -6,11 +6,17 @@
         .options
           - paypal_configured = @this_conference.paypal_email_address.present? && @this_conference.paypal_username.present? && @this_conference.paypal_password.present? && @this_conference.paypal_signature.present?
           - @payment_methods.each do |option|
-            - if !paypal_configured && option.to_sym == :paypal
+            - if option.to_sym == :paypal
+              - if paypal_configured
+                - class_name = [:unstyled]
+                - class_name << :selected if @payment_method.present? && @payment_method.to_sym == option
+                = button "payment_#{option}".to_sym, value: option, class: class_name
+            - elsif option.to_sym == :on_arrival
               - class_name = [:unstyled]
               - class_name << :selected if @payment_method.present? && @payment_method.to_sym == option
-              = button "payment_paypal_fallback".to_sym, value: option, class: class_name
-            - elsif option.to_sym != :paypal || paypal_configured
+              - label_key = paypal_configured ? "payment_on_arrival" : "payment_on_arrival_with_link"
+              = button label_key.to_sym, value: option, class: class_name
+            - elsif option.to_sym != :paypal
               - class_name = [:unstyled]
               - class_name << :selected if @payment_method.present? && @payment_method.to_sym == option
               = button "payment_#{option}".to_sym, value: option, class: class_name

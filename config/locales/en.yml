@@ -2442,7 +2442,9 @@ en:
         organization_none: None of the above
         payment_paypal: I can pay now online
         payment_paypal_fallback: I can pay via host provided link
+        payment_host_payment: I can pay via host provided link
         payment_on_arrival: I can pledge to pay on arrival
+        payment_on_arrival_with_link: I can pledge to pay on arrival or via host provided link
         payment_none: Not now
         food_meat: I eat meat and dairy
         food_vegetarian: I am vegetarian
