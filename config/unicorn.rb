@@ -1,6 +1,6 @@
 rails_env = ENV['RAILS_ENV'] || 'production'
 
-dir = 'rails'
+dir = 'BikeBike'
 
 if ENV['RAILS_ENV'] == 'preview'
   worker_processes 1
@@ -8,7 +8,7 @@ if ENV['RAILS_ENV'] == 'preview'
   port = 8081
 else
   worker_processes 2
-  directory = '/home/rails'
+  directory = '/app/BikeBike'
   port = 8080
 end
 
