@@ -2078,7 +2078,8 @@ en:
         Verify_Account: In order to confirm that you are a real person and that we
           will be able to contact you later, please verify your email address. We
           will send you an email that will allow you to continue with the registration
-          process.
+          process. If you don't receive the email in your inbox, please check your spam
+          or junk folder.
         facebook_sign_in: Alternatively you can sign in using your Facebook account
           and skip waiting for us to send you an email.
         can_provide_housing: Hosting visiting conference attendees is an important

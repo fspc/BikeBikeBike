@@ -1294,9 +1294,11 @@ fr:
           questions ou nous donner des renseignements que nous n''avons pas demandés,
           venez écrire dans le champ en bas de cette page ou communiquer avec nous. '
         Verify_Account: 'Pour confirmer que vous n''êtes pas un robot, et que nous
-          pourrons effectivement communiquer avec vous ultérieurement, veuillez consulter
-          votre boîte de messagerie électronique. Nous vous enverrons un message qui
-          vous permettra de poursuivre votre inscription. '
+          serons effectivement en mesure de communiquer avec vous ultérieurement, veuillez vérifier
+          votre adresse de messagerie électronique. Nous vous enverrons un message qui
+          vous permettra de poursuivre le processus d''inscription. Si vous ne recevez pas
+          le courriel dans votre boîte de réception, veuillez vérifier votre dossier de
+          courrier indésirables ou spam. '
         can_provide_housing: Héberger des participants et des partipantes est une
           composante essentielle de Bike!Bike! Cela permet à des gens qui n'auraient
           pas les moyens de se payer un hébergement de prendre part au Congrès et
