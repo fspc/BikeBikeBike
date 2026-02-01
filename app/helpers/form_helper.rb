@@ -714,8 +714,7 @@ module FormHelper
       :unregistered,
       :workshop_facilitators,
       :housing_providers,
-      :guests,
-      :all
+      :guests
     ]
 
     if conference.registration_status != :open
