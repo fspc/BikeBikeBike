@@ -324,6 +324,9 @@ class ApplicationController < BaseController
   end
 
   def error_500(exception = nil)
+    return if response_body.present?
+    return if response.committed?
+
     @page_title = 'page_titles.500.An_Error_Occurred'
     @main_title = 'error.500.title'
     @original_params = params.clone
