@@ -311,31 +311,34 @@ class ConferenceAdministrationController < ApplicationController
       }
 
       @registration_data = []
-      User.all.each do |user|
-        if user.email.present?
-          new_data = {
-            user_id: user.id,
-            email: user.email,
-            name: user.firstname
-          }
 
-          organization = user.organizations.first
-          new_data[:organization] = organization.present? ? organization.name : ''
+      registrations = ConferenceRegistration.where(conference_id: @this_conference.id).includes(:user, :user => :organizations)
 
-          registration = @this_conference.registration_for(user)
-          if registration.present? && registration.city_id.present?
-            new_data[:location] = registration.city.to_s
-            status = registration.status
-          else
-            new_data[:location] = user.last_location.to_s
-            status = :unregistered
-          end
+      registrations.each do |registration|
+        user = registration.user
+        next unless user&.email.present?
 
-          new_data[:status] = I18n.t("articles.conference_registration.terms.registration_status.#{status}")
-          new_data[:sort_weight] = sort_weight[status]
+        new_data = {
+          user_id: user.id,
+          email: user.email,
+          name: user.firstname
+        }
 
-          @registration_data << new_data
+        organization = user.organizations.first
+        new_data[:organization] = organization.present? ? organization.name : ''
+
+        if registration.city_id.present?
+          new_data[:location] = registration.city.to_s
+          status = registration.status
+        else
+          new_data[:location] = user.last_location.to_s
+          status = :unregistered
         end
+
+        new_data[:status] = I18n.t("articles.conference_registration.terms.registration_status.#{status}")
+        new_data[:sort_weight] = sort_weight[status]
+
+        @registration_data << new_data
       end
 
       @registration_data.sort! { |a, b| b[:sort_weight] <=> a[:sort_weight] }
