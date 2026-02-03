@@ -1659,7 +1659,7 @@ fr:
         types:
           future: Congrès à venir
           passed: Congrès passés
-        conferences: Congrès nationaux et régionaux
+        conferences: Congrès internationaux et régionaux
         travel_info: Se rendre à %{city}
         city_info: Météo et crime à %{city}
         schedule_info: Calendrier

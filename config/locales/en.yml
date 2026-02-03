@@ -1378,7 +1378,7 @@ en:
         city_info: A little about %{city}
         what_to_bring: What to Bring
         volunteering_info: Volunteering
-        conferences: National and Regional Conferences
+        conferences: International and Regional Conferences
         Conference_List: Conferences
         edit: Edit Conference
         new: New Conference
@@ -1388,8 +1388,10 @@ en:
           future: Upcoming conferences
           passed: Passed conferences
       paragraphs:
-        conferences: Bike!Bike! conferences are held nationally once a year in a different
-          city in North America; regional conferences can be held anywhere, anytime.
+        conferences: Bike!Bike! conferences are held internationally once a year in a
+          different city; regional conferences can be held anywhere, anytime. Bike!Bike!
+          Everywhere events are virtual gatherings that can be international, subject-specific,
+          or regional.
     admin:
       headings:
         back: Back to Administration
