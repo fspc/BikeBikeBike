@@ -7,14 +7,17 @@ $bug-list: (
     "pre-overflow-not-auto": false,
     "code-font-not-ems-and-not-monospace": false
 );
-$markup-settings: ("audio": false);
+$markup-settings: (
+    "audio": false
+);
 
 @import "bumbleberry";
 @import "settings";
 
 $zindex-base: 0;
 
-html, body {
+html,
+body {
     color: $black;
     position: relative;
     z-index: $zindex-base;
@@ -25,7 +28,20 @@ body {
     padding-bottom: 20vw;
 }
 
-h1, h2, h3, h4, h5, h6, label, button, .button, dt, th, .table-th, nav.sub-menu, legend {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+button,
+.button,
+dt,
+th,
+.table-th,
+nav.sub-menu,
+legend {
     @include font-family(secondary);
     font-weight: normal;
 }
@@ -35,7 +51,8 @@ h2 {
     font-size: 6vw;
 }
 
-h3, legend {
+h3,
+legend {
     font-size: 4.5vw;
     margin: 0.75em 0;
     line-height: 1.333em;
@@ -88,11 +105,11 @@ a {
     text-decoration-style: wavy;
 }
 
-.screen-reader-text { 
-    clip: rect(1px, 1px, 1px, 1px); 
-    height: 1px; 
-    width: 1px; 
-    overflow: hidden; 
+.screen-reader-text {
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
     position: absolute !important;
 }
 
@@ -100,11 +117,15 @@ a {
     display: none;
 }
 
-table, .table {
+table,
+.table {
     margin-bottom: 2em;
     margin-left: 1em;
 
-    th, td, .table-th, .table-td {
+    th,
+    td,
+    .table-th,
+    .table-td {
         text-align: left;
         padding: 0.25em 0.5em;
         border: 0.1rem solid $light-gray;
@@ -124,7 +145,8 @@ table, .table {
         }
     }
 
-    th, .table-th {
+    th,
+    .table-th {
         background-color: $extra-light-gray;
 
         &.corner {
@@ -163,12 +185,12 @@ table, .table {
 
     tr[data-key] {
         cursor: cell;
-            
+
         &.editable:hover {
             background-color: lighten($colour-2, 33%);
         }
 
-        + .editor {
+        +.editor {
             display: none;
             background-color: lighten($colour-1, 50%);
 
@@ -190,9 +212,10 @@ table, .table {
                 }
 
                 .cell-editor {
-                    &[type=number]::-webkit-inner-spin-button, 
-                    &[type=number]::-webkit-outer-spin-button { 
-                        -webkit-appearance: none; 
+
+                    &[type=number]::-webkit-inner-spin-button,
+                    &[type=number]::-webkit-outer-spin-button {
+                        -webkit-appearance: none;
                     }
                 }
 
@@ -210,7 +233,8 @@ table, .table {
             }
         }
 
-        + .editor, &.always-edit {
+        +.editor,
+        &.always-edit {
             td {
                 position: relative;
                 vertical-align: top;
@@ -237,7 +261,7 @@ table, .table {
                 }
             }
         }
-        
+
         &.always-edit td .cell-editor {
             position: absolute;
         }
@@ -245,7 +269,7 @@ table, .table {
         &.editing {
             display: none;
 
-            + .editor {
+            +.editor {
                 display: table-row;
 
                 .cell-editor {
@@ -273,11 +297,15 @@ table, .table {
         }
     }
 
-    tr.editable, tr.editor {
+    tr.editable,
+    tr.editor {
         td {
             white-space: nowrap;
 
-            &.date, &.datetime, &.money, &.number {
+            &.date,
+            &.datetime,
+            &.money,
+            &.number {
                 font-family: monospace;
                 font-size: 1.25em;
                 text-align: right;
@@ -294,7 +322,7 @@ table, .table {
         overflow: hidden;
         text-overflow: ellipsis;
     }
-            
+
     tr.editor {
         td.text .cell-editor {
             white-space: normal;
@@ -314,7 +342,7 @@ table, .table {
 .table-scroller {
     overflow: auto;
     background-color: $extra-light-gray;
-    @include _(box-shadow, inset 0 0 10em 0 rgba(0,0,0,0.125));
+    @include _(box-shadow, inset 0 0 10em 0 rgba(0, 0, 0, 0.125));
 
     table {
         background-color: $white;
@@ -419,7 +447,7 @@ body.expanded-element {
         min-width: 50em;
         max-width: 75em;
         margin: auto;
-        overflow: auto;     
+        overflow: auto;
         z-index: 1002;
         background-color: $extra-light-gray;
         flex: 1;
@@ -439,7 +467,8 @@ body.expanded-element {
     display: table-row;
 }
 
-.table-th, .table-td {
+.table-th,
+.table-td {
     display: table-cell;
 }
 
@@ -451,13 +480,39 @@ body.expanded-element {
         padding: 1em;
     }
 
-    .table-tr, .table-th, .table-td {
+    .table-tr,
+    .table-th,
+    .table-td {
         display: block;
         overflow: auto;
+        border-width: 0 !important;
+        border-style: none !important;
+        border-color: transparent !important;
     }
 
     .table-tr {
         margin-bottom: 1em;
+    }
+}
+
+// this code is used to hide columns with class "column-set" on small screens
+// but is not really necessary, was fixed with bumbleberry_overridehelp.rb
+@media only screen and (max-width: 679px) {
+    .responsive-table {
+
+        .table-tr,
+        .table-th,
+        .table-td {
+            border-width: 0 !important;
+            border-style: none !important;
+            border-color: transparent !important;
+        }
+    }
+
+    // th class="column-set" are not necessary in mobile and break newer
+    // versions of Chrome (144)
+    th.column-set {
+        display: none !important;
     }
 }
 
@@ -492,7 +547,8 @@ button,
         background-color: $orange;
     }
 
-    &.subdued, #main &.subdued {
+    &.subdued,
+    #main &.subdued {
         background-color: $mid-gray;
     }
 
@@ -568,11 +624,12 @@ button,
 
 #main .actions {
     margin-top: 4em;
-    
+
     &.center {
         text-align: center;
 
-        button, .button {
+        button,
+        .button {
             margin-left: 0.5em;
         }
     }
@@ -588,7 +645,8 @@ button,
         justify-content: center;
         @include _(flex-wrap, wrap);
 
-        button, .button {
+        button,
+        .button {
             margin: 0.333em;
         }
     }
@@ -604,7 +662,8 @@ button,
         background-color: $blue;
     }
 
-    button[value="cancel"], button.red {
+    button[value="cancel"],
+    button.red {
         background-color: $red;
     }
 
@@ -614,6 +673,7 @@ button,
 }
 
 #main {
+
     .registration-step-options,
     .vertical-registration-step-options {
         text-align: center;
@@ -635,7 +695,7 @@ button,
         margin: 0 auto;
 
         .options {
-            + fieldset {
+            +fieldset {
                 margin: 2em 0;
             }
         }
@@ -745,7 +805,9 @@ ul.menu {
     text-align: center;
     margin-bottom: 3em;
 
-    &.error, &.complete, &.warning {
+    &.error,
+    &.complete,
+    &.warning {
         display: block;
     }
 
@@ -785,7 +847,7 @@ nav.sub-menu {
     display: inline-block;
     margin: 2rem 0 0;
     text-align: center;
-    
+
     a {
         margin: 0 1em 0.5em 0;
         background-color: $gray;
@@ -799,7 +861,9 @@ nav.sub-menu {
         @include default-box-shadow(top, 2);
         @include _(text-shadow, 0 0.05em 0.05em $white);
 
-        &:hover, &:active, &:focus {
+        &:hover,
+        &:active,
+        &:focus {
             background-color: $light-gray;
         }
 
@@ -833,18 +897,21 @@ nav.sub-menu {
     }
 }
 
-textarea, .textarea {
+textarea,
+.textarea {
     display: block;
     width: 100%;
     margin: 1em 0;
     border: 0.1rem solid $gray;
     @include _(border-radius, 0.25rem);
-    @include _(box-shadow, 0 0 0 0 rgba(0,0,0,0.05));
+    @include _(box-shadow, 0 0 0 0 rgba(0, 0, 0, 0.05));
     @include _(transition, box-shadow 200ms ease-in-out);
     will-change: box-shadow;
 
-    &:hover, &:focus, &:active {
-        @include _(box-shadow, 0 0 0 0.3em rgba(0,0,0,0.05));
+    &:hover,
+    &:focus,
+    &:active {
+        @include _(box-shadow, 0 0 0 0.3em rgba(0, 0, 0, 0.05));
     }
 }
 
@@ -853,12 +920,24 @@ textarea, .textarea {
 }
 
 .textarea {
-    .ql-editor p, .ql-editor ol, .ql-editor ul, .ql-editor pre, .ql-editor blockquote, .ql-editor h1, .ql-editor h2, .ql-editor h3, .ql-editor h4, .ql-editor h5, .ql-editor h6 {
+
+    .ql-editor p,
+    .ql-editor ol,
+    .ql-editor ul,
+    .ql-editor pre,
+    .ql-editor blockquote,
+    .ql-editor h1,
+    .ql-editor h2,
+    .ql-editor h3,
+    .ql-editor h4,
+    .ql-editor h5,
+    .ql-editor h6 {
         margin-bottom: 1em;
     }
 }
 
-textarea, .textarea .ql-editor {
+textarea,
+.textarea .ql-editor {
     background-image: repeating-linear-gradient(135deg, rgba(#000, 0.025), rgba(#000, 0.025) 0.1em, transparent 0.1em, transparent 0.4em);
     min-height: 15em;
     font-size: 1.25em;
@@ -872,7 +951,8 @@ textarea, .textarea .ql-editor {
     }
 }
 
-.textarea, .workshop-description {
+.textarea,
+.workshop-description {
     > :first-child {
         margin-top: 0;
     }
@@ -895,7 +975,14 @@ textarea, .textarea .ql-editor {
 }
 
 input {
-    &[type="text"], &[type="password"], &[type="tel"], &[type="search"], &[type="email"], &[type="url"], &[type="number"] {
+
+    &[type="text"],
+    &[type="password"],
+    &[type="tel"],
+    &[type="search"],
+    &[type="email"],
+    &[type="url"],
+    &[type="number"] {
         display: block;
         font-size: 1.25em;
         outline: 0;
@@ -906,7 +993,8 @@ input {
         border-bottom: 0.15em solid transparent;
     }
 
-    &[type="number"], &[type="tel"] {
+    &[type="number"],
+    &[type="tel"] {
         @include font-family(secondary);
     }
 }
@@ -968,22 +1056,28 @@ input {
         padding: 0.15em 0.5em;
         background-color: $extra-light-gray;
         @include _(border-radius, 0.25rem);
-        @include _(box-shadow, 0 0 0 0 rgba(0,0,0,0.05));
+        @include _(box-shadow, 0 0 0 0 rgba(0, 0, 0, 0.05));
         @include _(transition, box-shadow 200ms ease-in-out);
         background-image: repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.025), rgba(0, 0, 0, 0.025) 0.1rem, transparent 0.1rem, transparent 0.4rem);
         border: 0.1rem solid $gray;
         will-change: box-shadow;
     }
 
-    &:focus, &:active, &:focus {
+    &:focus,
+    &:active,
+    &:focus {
 
         label {
             color: $black;
         }
     }
+
     input {
-        &:focus, &:active, &:hover {
-            @include _(box-shadow, 0 0 0 0.3em rgba(0,0,0,0.05));
+
+        &:focus,
+        &:active,
+        &:hover {
+            @include _(box-shadow, 0 0 0 0.3em rgba(0, 0, 0, 0.05));
         }
 
         &[readonly] {
@@ -1023,7 +1117,7 @@ input {
         padding: 0.5em;
         background-color: $extra-light-gray;
         @include _(border-radius, 0.25rem);
-        @include _(box-shadow, 0 0 0 0 rgba(0,0,0,0.05));
+        @include _(box-shadow, 0 0 0 0 rgba(0, 0, 0, 0.05));
         @include _(transition, box-shadow 200ms ease-in-out);
         background-image: repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.025), rgba(0, 0, 0, 0.025) 0.1rem, transparent 0.1rem, transparent 0.4rem);
         border: 0.1rem solid $gray;
@@ -1058,9 +1152,13 @@ input {
         }
     }
 
-    label:hover, input:focus + label, input:active + label, label:focus, label:active {
+    label:hover,
+    input:focus+label,
+    input:active+label,
+    label:focus,
+    label:active {
         .file-field-selector {
-            @include _(box-shadow, 0 0 0 0.3em rgba(0,0,0,0.05));
+            @include _(box-shadow, 0 0 0 0.3em rgba(0, 0, 0, 0.05));
         }
     }
 }
@@ -1120,7 +1218,7 @@ input {
         margin: 0.33em 0;
 
         &:checked {
-            + div input {
+            +div input {
                 z-index: $zindex-base + 2;
                 @include _(opacity, 1);
             }
@@ -1176,7 +1274,7 @@ input {
         @include _(box-shadow, none);
         margin: 0;
     }
-    
+
     label {
         display: block;
         background-color: $white;
@@ -1199,7 +1297,7 @@ input {
             content: '';
             position: absolute;
             @include _(transition, transform 200ms ease-in-out);
-         }
+        }
 
         @include before {
             content: '';
@@ -1226,7 +1324,7 @@ input {
         }
     }
 
-    input:first-child + label {
+    input:first-child+label {
         border: 0.1em solid;
     }
 
@@ -1236,23 +1334,24 @@ input {
         left: -100000px;
         z-index: -10;
 
-        &:checked + label {
+        &:checked+label {
             @include before {
                 background-color: $colour-5;
             }
+
             @include after {
                 visibility: visible;
                 @include _(transform, rotate(45deg) scale(1));
             }
         }
 
-        &:hover + label {
+        &:hover+label {
             @include before {
                 background-color: $colour-3;
             }
         }
 
-        &[type="radio"] + label {
+        &[type="radio"]+label {
             @include after {
                 content: '+';
                 border: 0;
@@ -1267,7 +1366,7 @@ input {
         }
     }
 
-    &.inline input[type="radio"] + label {
+    &.inline input[type="radio"]+label {
         @include after {
             top: -0.15em;
             left: 0.05em;
@@ -1283,7 +1382,7 @@ input {
 
         input {
             z-index: 1;
-            opacity: 1!important;
+            opacity: 1 !important;
             position: static;
             margin: 0;
             font: inherit;
@@ -1299,7 +1398,7 @@ input {
     margin: 0 2em 5em;
     font-size: 0.75em;
 
-    input[type="radio"] + label {
+    input[type="radio"]+label {
         @include after {
             top: -0.15em;
             left: 0.05em;
@@ -1334,7 +1433,7 @@ input {
 
 form {
     @include _(transition, 'opacity 250ms ease-in-out, filter 250ms ease-in-out, -webkit-filter 250ms ease-in-out');
-    
+
     &.composition {
         textarea {
             height: 16em;
@@ -1349,7 +1448,8 @@ form {
             @include _(flex, 1);
         }
 
-        button, .button {
+        button,
+        .button {
             margin-left: 1em;
             height: 2.6em;
         }
@@ -1392,17 +1492,18 @@ form {
 #main .columns .table-td.form {
     border: 0;
     width: 1px;
-    
+
     form {
         margin: 0;
     }
 
-    button, .button {
+    button,
+    .button {
         display: block;
         width: 100%;
         white-space: nowrap;
 
-        + button {
+        +button {
             margin-top: 0.5em;
         }
     }
@@ -1424,7 +1525,7 @@ fieldset {
             margin: 0;
         }
 
-        + .input-field-help {
+        +.input-field-help {
             overflow: auto;
             margin-bottom: 2em;
         }
@@ -1452,7 +1553,7 @@ fieldset {
     @include _(flex-wrap, wrap);
     margin: 0 0 3em 1em;
 
-    > .input-field {
+    >.input-field {
         margin-right: 1em;
         @include _(flex, 1);
     }
@@ -1461,13 +1562,14 @@ fieldset {
 #main article fieldset.translator {
     .fieldgroup {
         display: block;
-    
-        > .input-field {
+
+        >.input-field {
             flex: none;
         }
     }
 
-    .locale-select, .text-editors {
+    .locale-select,
+    .text-editors {
         list-style: none;
         padding: 0;
         margin: 0;
@@ -1521,7 +1623,7 @@ fieldset {
             }
         }
     }
-    
+
     &.multi-field-translator {
         .text-editors {
             border: 0.1em solid $gray;
@@ -1574,7 +1676,8 @@ fieldset {
     .sub-comment {
         font-size: 0.8em;
 
-        .comment-title, time {
+        .comment-title,
+        time {
             top: -1em;
         }
     }
@@ -1588,6 +1691,7 @@ fieldset {
 
     #main .columns & form {
         margin-top: 0;
+
         button {
             @include _(transition, background-color 150ms ease-in-out);
             background-color: $mid-gray;
@@ -1597,7 +1701,7 @@ fieldset {
             @include _(opacity, 1);
 
             .text-area-field {
-                max-height: 12em;  
+                max-height: 12em;
             }
 
             button {
@@ -1626,12 +1730,16 @@ fieldset {
     }
 }
 
-.flex-form, .flex-column {
-    button, .button {
+.flex-form,
+.flex-column {
+
+    button,
+    .button {
         width: 100%;
         text-align: center;
-        
-        + button, + .button {
+
+        +button,
+        +.button {
             margin-top: 0.75em;
         }
     }
@@ -1795,7 +1903,7 @@ ul.warnings {
             color: $white;
             @include _(border-radius, 0);
             @include _(box-shadow, inset 0 0 1.5em 0.25em rgba(0, 0, 0, 0.125));
-            @include _(text-shadow, 0 0 0.25em rgba(0,0,0,0.5));
+            @include _(text-shadow, 0 0 0.25em rgba(0, 0, 0, 0.5));
             @include not-link-like;
 
             .title {
@@ -1834,7 +1942,7 @@ ul.warnings {
             border: 0.1em solid transparent;
             margin-bottom: 0.25em;
             display: inline-block;
-            
+
             &.current {
                 border-color: $almost-light-gray;
                 background-color: $extra-light-gray;
@@ -1863,9 +1971,11 @@ ul.warnings {
             display: table;
             width: 100%;
         }
+
         @if capable_of(flexbox, true) {
             @include _-(display, flex);
         }
+
         list-style: none;
         margin: 2em 2em 5em 0;
         padding: 0;
@@ -1873,12 +1983,15 @@ ul.warnings {
 
     li {
         position: relative;
+
         @if not capable_of(flexbox, true) {
             display: table-cell;
         }
+
         @if capable_of(flexbox, true) {
             @include _(flex, 1);
         }
+
         padding-top: 1.5em;
 
         @include after {
@@ -1932,7 +2045,7 @@ ul.warnings {
             @include after {
                 border-top-style: solid;
             }
-            
+
             @include before {
                 background-color: $colour-1;
                 @include _(box-shadow, 0 0 0.25rem $colour-1);
@@ -2039,7 +2152,7 @@ table.schedule {
     @for $i from 1 through 10 {
         thead tr.locations-#{$i} .location-header {
             width: percentage(100 / $i);
-        }        
+        }
     }
 
     tbody {
@@ -2220,7 +2333,7 @@ body.home table.schedule td .event-detail-link:hover {
             background-position: center;
             background-repeat: no-repeat;
         }
-        
+
         ul {
             clear: left;
         }
@@ -2247,16 +2360,31 @@ a.logo {
 @if capable_of(svg) {
 
     @include keyframes(active-logo) {
-        0% { fill: $colour-1; }
-        15% { fill: $colour-5; }
-        30% { fill: $colour-3; }
-        45% { fill: $colour-4; }
-        60% { fill: $colour-2; }
+        0% {
+            fill: $colour-1;
+        }
+
+        15% {
+            fill: $colour-5;
+        }
+
+        30% {
+            fill: $colour-3;
+        }
+
+        45% {
+            fill: $colour-4;
+        }
+
+        60% {
+            fill: $colour-2;
+        }
     }
 
     svg.bb-icon-logo {
         fill: $colour-1;
     }
+
     svg.bb-icon-logo-text {
         fill: $black;
     }
@@ -2301,7 +2429,8 @@ a.logo {
         font-size: 5vw;
         margin: 0;
 
-        h1, h2 {
+        h1,
+        h2 {
             margin: 0;
         }
 
@@ -2338,7 +2467,7 @@ a.logo {
         right: 0;
 
         a {
-            display: block; 
+            display: block;
         }
     }
 }
@@ -2377,7 +2506,8 @@ $header-tilt: 8deg;
     position: relative;
     z-index: $zindex-base;
 
-    .row, .columns {
+    .row,
+    .columns {
         position: static;
     }
 
@@ -2405,7 +2535,7 @@ $header-tilt: 8deg;
             @include _(mix-blend-mode, multiply);
         }
     }
-    
+
     &.no-image,
     &.short {
         h1 {
@@ -2423,16 +2553,14 @@ $header-tilt: 8deg;
         background-repeat: repeat;
         background-size: 30px 30px;
         @include _(animation, barberpole 500ms linear infinite);
-        background-image: linear-gradient(
-            45deg, 
-            rgba($white, 0.1) 25%, 
-            transparent 25%, 
-            transparent 50%, 
-            rgba($white, 0.1) 50%, 
-            rgba($white, 0.1) 75%, 
-            transparent 75%, 
-            transparent
-        );
+        background-image: linear-gradient(45deg,
+                rgba($white, 0.1) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba($white, 0.1) 50%,
+                rgba($white, 0.1) 75%,
+                transparent 75%,
+                transparent);
 
         svg {
             vertical-align: middle;
@@ -2495,7 +2623,7 @@ $header-tilt: 8deg;
 
             .conference-details {
                 margin: 0.25em 0;
-                
+
                 div {
                     display: inline-block;
 
@@ -2528,11 +2656,15 @@ $header-tilt: 8deg;
         color: $colour-1;
         @include _(opacity, 0.65);
         margin: -4% -2%;
+
         @if capable_of(calc) {
             font-size: calc(5vw + #{rems(7)});
-        } @else {
+        }
+
+        @else {
             font-size: rems(11);
         }
+
         display: none;
     }
 
@@ -2576,7 +2708,7 @@ $header-tilt: 8deg;
 
 #footer {
     padding: 1em;
-    
+
     footer {
         @include _-(display, flex);
         @include _(flex-flow, row wrap);
@@ -2584,7 +2716,9 @@ $header-tilt: 8deg;
         font-size: 4.1vw;
     }
 
-    .site-info, .user-controls, .external {
+    .site-info,
+    .user-controls,
+    .external {
         width: 100%;
         text-align: center;
 
@@ -2613,7 +2747,10 @@ $header-tilt: 8deg;
 
     .facebook {
         a {
-            &:hover, &:active, &:focus {
+
+            &:hover,
+            &:active,
+            &:focus {
                 svg {
                     fill: #3B579D;
                 }
@@ -2621,7 +2758,8 @@ $header-tilt: 8deg;
         }
     }
 
-    .github, .facebook {
+    .github,
+    .facebook {
         display: inline-block;
         margin: 0.5em;
 
@@ -2657,7 +2795,10 @@ $header-tilt: 8deg;
     }
 
     body.error-locale-not-available & {
-        .github, .facebook, .locales {
+
+        .github,
+        .facebook,
+        .locales {
             visibility: hidden;
         }
     }
@@ -2683,6 +2824,7 @@ body {
             display: -webkit-flex;
             flex-direction: column;
         }
+
         min-height: 100vh;
         overflow: hidden;
     }
@@ -2734,7 +2876,7 @@ body {
             background-color: rgba($black, 0);
             @include _(transition, background-color 250ms ease-in-out);
         }
-        
+
         &.open {
             @include before {
                 background-color: rgba($black, 0.5);
@@ -2773,7 +2915,8 @@ body {
         }
     }
 
-    button, .button {
+    button,
+    .button {
         margin: 0 0.25em 0.5em;
     }
 
@@ -2817,7 +2960,8 @@ body {
     #info-dlg .message {
         text-align: left;
 
-        p, h4 {
+        p,
+        h4 {
             font-size: 0.8em;
         }
 
@@ -2861,7 +3005,9 @@ body {
 }
 
 @include keyframes(barberpole) {
-  to   { background-position: 60px 30px; }
+    to {
+        background-position: 60px 30px;
+    }
 }
 
 html :focus {
@@ -2901,7 +3047,7 @@ html :focus {
     &.option-count-5 button.option-4 {
         background-color: mix($colour-3, $colour-5);
     }
-    
+
     &.option-count-5 {
         button.option-2 {
             background-color: mix($colour-3, $colour-4);
@@ -2967,11 +3113,11 @@ html :focus {
         float: right;
         cursor: pointer;
 
-        &:hover + .term {
+        &:hover+.term {
             background-color: rgba($colour-3, 0.25);
         }
 
-        &:checked + .term {
+        &:checked+.term {
             font-style: normal;
             background-color: rgba($colour-5, 0.125);
         }
@@ -3009,7 +3155,8 @@ body.policy .policy-agreement ul {
         margin-bottom: 0.5em;
     }
 
-    .name, .role {
+    .name,
+    .role {
         display: inline;
     }
 
@@ -3051,12 +3198,13 @@ body.policy .policy-agreement ul {
         &:last-child {
             box-shadow: 0 0.333em 0 -0.1em $light-gray;
         }
-        
-        > div {
+
+        >div {
             vertical-align: top;
             margin-top: 2em;
 
-            h3, p:first-child {
+            h3,
+            p:first-child {
                 margin-top: 0;
             }
 
@@ -3067,7 +3215,7 @@ body.policy .policy-agreement ul {
     }
 
     .info {
-        
+
         .title {
             margin: 0 0 0.5em;
         }
@@ -3117,7 +3265,7 @@ body.policy .policy-agreement ul {
         overflow: hidden;
     }
 
-    > li {
+    >li {
         position: relative;
         margin-bottom: 1em;
         border-bottom: 0.1rem solid $light-gray;
@@ -3150,7 +3298,8 @@ body.policy .policy-agreement ul {
         font-size: 1em;
     }
 
-    h5, h6 {
+    h5,
+    h6 {
         margin: 1em 0 0;
     }
 }
@@ -3165,7 +3314,8 @@ body.policy .policy-agreement ul {
     }
 }
 
-#main .workshop-interest, .workshop-interest {
+#main .workshop-interest,
+.workshop-interest {
     text-align: right;
 
     form {
@@ -3179,7 +3329,7 @@ body.policy .policy-agreement ul {
         vertical-align: middle;
 
         &.delete {
-            background-color: $colour-4;            
+            background-color: $colour-4;
         }
     }
 }
@@ -3194,8 +3344,10 @@ body.policy .policy-agreement ul {
         background-color: $extra-light-gray;
         @include _(border-radius, 0.25em);
     }
-    
-    h4, h5, h6 {
+
+    h4,
+    h5,
+    h6 {
         margin: 0;
     }
 
@@ -3298,7 +3450,7 @@ body.policy .policy-agreement ul {
 
             @include before {
                 font-size: 0.725em;
-            }           
+            }
         }
     }
 
@@ -3325,7 +3477,7 @@ body.policy .policy-agreement ul {
     visibility: hidden;
 
     &.open {
-    @include _(transition, 'transform 250ms ease-in-out, max-height 250ms ease-in-out');
+        @include _(transition, 'transform 250ms ease-in-out, max-height 250ms ease-in-out');
         max-height: 100em;
         visibility: visible;
         @include _(transform, scaleX(1));
@@ -3355,7 +3507,7 @@ body.policy .policy-agreement ul {
             height: 1.25em;
             line-height: 1.25em;
             text-align: center;
-            margin: 0;// 0.3333em 0 0;
+            margin: 0; // 0.3333em 0 0;
         }
     }
 
@@ -3453,7 +3605,8 @@ fieldset.likert {
     .responsive-table.likert {
         margin: 2em 0 1em;
 
-        .table-td, .table-thead .table-th {
+        .table-td,
+        .table-thead .table-th {
             text-align: center;
         }
 
@@ -3479,8 +3632,8 @@ fieldset.likert {
 
     :focus,
     input[type="submit"]:focus,
-    .check-box-field input:focus + label,
-    .radio-button-field input:focus + label,
+    .check-box-field input:focus+label,
+    .radio-button-field input:focus+label,
     .select-field select:focus,
     .workshop-link:focus .title,
     #main-nav .nav a:focus .title {
@@ -3518,7 +3671,8 @@ fieldset.likert {
         font-size: 2.25em;
     }
 
-    h3, legend {
+    h3,
+    legend {
         font-size: 1.75em;
     }
 
@@ -3547,11 +3701,13 @@ fieldset.likert {
                 @include _(flex, 1);
             }
 
-            button, .button {
+            button,
+            .button {
                 margin-left: 1em;
                 height: 2.6em;
-        
-                + button, + .button {
+
+                +button,
+                +.button {
                     margin-top: 0;
                     margin-left: 0.75em;
                 }
@@ -3560,6 +3716,7 @@ fieldset.likert {
     }
 
     .input-field {
+
         &.big select,
         &.big input {
             font-size: 2em;
@@ -3594,18 +3751,21 @@ fieldset.likert {
             margin-right: 1em;
         }
 
-        .select-field ~ .number-field,
-        .select-field ~ .email-field,
-        .select-field ~ .search-field,
-        .select-field ~ .telephone-field,
-        .select-field ~ .password-field,
-        .select-field ~ .text-field {
+        .select-field~.number-field,
+        .select-field~.email-field,
+        .select-field~.search-field,
+        .select-field~.telephone-field,
+        .select-field~.password-field,
+        .select-field~.text-field {
             margin-top: 1em;
         }
     }
 
-    .flex-form, .flex-column {
-        button, .button {
+    .flex-form,
+    .flex-column {
+
+        button,
+        .button {
             width: auto;
         }
     }
@@ -3631,7 +3791,7 @@ fieldset.likert {
         .nav a {
             &[class] {
                 @include _(flex, 1);
-                white-space: nowrap; 
+                white-space: nowrap;
                 width: auto;
                 float: none;
                 overflow: visible;
@@ -3685,7 +3845,7 @@ fieldset.likert {
             }
         }
     }
-    
+
     .conference-banner {
         margin: 0 auto;
         width: 100%;
@@ -3732,10 +3892,11 @@ fieldset.likert {
             }
         }
 
-        .info, .img {
+        .info,
+        .img {
             display: table-cell;
         }
-        
+
         .img {
             padding: 2em 0 1em;
         }
@@ -3855,7 +4016,7 @@ fieldset.likert {
         .background {
             display: block;
         }
-        
+
         .primary {
             padding: 12% 0 0 0.25em;
         }
@@ -3871,9 +4032,12 @@ fieldset.likert {
                 @include _(flex, none);
                 @include _(flex-basis, auto);
             }
+
             margin: 0 1em;
         }
-        .facebook, .external {
+
+        .facebook,
+        .external {
             margin: 0;
         }
 
@@ -3882,7 +4046,9 @@ fieldset.likert {
             text-align: right;
         }
 
-        .site-info, .user-controls, .external {
+        .site-info,
+        .user-controls,
+        .external {
             width: auto;
         }
 
@@ -3920,11 +4086,11 @@ fieldset.likert {
             text-align: left;
         }
 
-        input:first-child + label {
+        input:first-child+label {
             border: 0.1em solid;
         }
 
-        input[type="radio"] + label {
+        input[type="radio"]+label {
             @include after {
                 top: -0.025em;
                 left: 0.175em;
@@ -3942,7 +4108,7 @@ fieldset.likert {
                 }
             }
 
-            input[type="radio"] + label {
+            input[type="radio"]+label {
                 @include after {
                     top: -0.025em;
                     left: 0.175em;
@@ -4038,7 +4204,8 @@ fieldset.likert {
             padding: 0.25em 0.5em;
         }
 
-        .table-th, .table-td {
+        .table-th,
+        .table-td {
             display: table-cell;
         }
 
@@ -4054,7 +4221,9 @@ fieldset.likert {
             display: table-footer-group;
         }
     }
-} // medium
+}
+
+// medium
 
 @include breakpoint(large) {
     .responsive-table.likert {
@@ -4069,9 +4238,11 @@ fieldset.likert {
         &.no-image {
             min-height: 0;
         }
+
         &.short {
             min-height: rems(25);
         }
+
         &.no-image,
         &.short {
             h1 {
@@ -4100,7 +4271,7 @@ fieldset.likert {
     .actions {
         margin: 4em 2em 0 0;
     }
-    
+
     #footer {
         overflow: visible;
         padding: 0;

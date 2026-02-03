@@ -166,6 +166,20 @@
     if (!window.initNodeFunctions) {
         window.initNodeFunctions = [];
     }
+
+    // this code is used to hide columns with class "column-set" on small screens
+    // but is not really necessary, was fixed with bumbleberry_overridehelp.rb
+    function handleColumnSetVisibility() {
+        var isMobile = window.innerWidth <= 679;
+        var elements = document.querySelectorAll('.table-th.column-set, th.column-set');
+        elements.forEach(function(el) {
+            el.style.display = isMobile ? 'none' : '';
+        });
+    }
+
+    window.initNodeFunctions.push(handleColumnSetVisibility);
+    window.addEventListener('resize', handleColumnSetVisibility);
+
     window.initNodeFunctions.push(function(node) {
         forEachElement('.number-field,.email-field,.text-field,.password-field,.search-field', function(field) {
             var input = field.querySelector('input');

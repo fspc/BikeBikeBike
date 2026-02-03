@@ -1,6 +1,8 @@
 require 'net/https'
 
 class ApplicationController < BaseController
+  include BumbleberryOverrideHelper
+
   protect_from_forgery with: :exception, except: [:do_confirm, :js_error, :admin_update]
 
   before_filter :application_setup
