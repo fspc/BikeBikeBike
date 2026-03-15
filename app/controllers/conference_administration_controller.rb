@@ -76,7 +76,7 @@ class ConferenceAdministrationController < ApplicationController
 
   def previous_stats
     set_conference
-    conference = Conference.find_by_slug(params[:conference_slug])
+    conference = Conference.find_by("LOWER(slug) = LOWER(?)", params[:conference_slug])
     return do_403 unless conference.is_public
     get_stats(false, nil, conference)
     logger.info "Generating #{conference.slug}.xls"

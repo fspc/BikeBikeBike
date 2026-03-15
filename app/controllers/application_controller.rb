@@ -123,7 +123,7 @@ class ApplicationController < BaseController
     @page_title ||= 'page_titles.403.Please_Check_Email'
 
     if (request.present? && request.referrer.present? && conference = /^\/conferences\/(\w+)\/register\/?$/.match(request.referrer.gsub(/^https?:\/\/.*?\//, '/')))
-      @this_conference = Conference.find_by!(slug: conference[1])
+      @this_conference = Conference.find_by!("LOWER(slug) = LOWER(?)", conference[1])
       @banner_image = @this_conference.cover_url
       template = 'conferences/email_confirm'
     end
@@ -283,7 +283,7 @@ class ApplicationController < BaseController
       @page_title ||= 'page_titles.403.Please_Check_Email'
 
       if (request.present? && request.referrer.present? && conference = /^\/conferences\/(\w+)\/register\/?$/.match(request.referrer.gsub(/^https?:\/\/.*?\//, '/')))
-        @this_conference = Conference.find_by!(slug: conference[1])
+        @this_conference = Conference.find_by!("LOWER(slug) = LOWER(?)", conference[1])
         @banner_image = @this_conference.cover_url
         template = 'conferences/email_confirm'
       end
@@ -617,7 +617,7 @@ class ApplicationController < BaseController
 
   protected
     def set_conference
-      @this_conference = Conference.find_by!(slug: params[:slug])
+      @this_conference = Conference.find_by!("LOWER(slug) = LOWER(?)", params[:slug])
     end
 
     def set_conference_registration

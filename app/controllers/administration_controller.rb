@@ -9,7 +9,7 @@ class AdministrationController < ApplicationController
 
   def edit
     return do_404 unless logged_in? && current_user.administrator?
-    @this_conference = Conference.find_by!(slug: params[:slug])
+    @this_conference = Conference.find_by!("LOWER(slug) = LOWER(?)", params[:slug])
     @page_title = 'articles.conferences.headings.edit'
     @main_title_vars = { vars: { title: @this_conference.title } }
     render 'new'

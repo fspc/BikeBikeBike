@@ -3,6 +3,10 @@ Sidekiq::Web.set :sessions, false
 
 BikeBike::Application.routes.draw do
 
+  # Redirect uppercase CONFERENCES to lowercase conferences
+  get '/CONFERENCES(*anything)', to: redirect { |params, request| "/conferences#{params[:anything]}" }
+  get '/CONFERENCES', to: redirect('/conferences')
+
   # Conferences
   scope :conferences do
     root 'conferences#list', as: :conferences
@@ -10,7 +14,7 @@ BikeBike::Application.routes.draw do
     get 'new' => 'administration#new', as: :new_conference
     post 'save' => 'administration#save', as: :save_conference
 
-    scope ':slug', constraints: { slug: /[^\/]+/ } do
+    scope ':slug', constraints: SlugConstraint.new do
       root 'conferences#view', as: :conference
       
       get 'edit' => 'administration#edit', as: :edit_conference
