@@ -16,8 +16,8 @@ BikeBike::Application.routes.draw do
     get 'new' => 'administration#new', as: :new_conference
     post 'save' => 'administration#save', as: :save_conference
 
-    # Public routes with slug normalization
-    scope ':slug', constraints: SlugConstraint.new do
+    # Slug with regex allowing dots, unicode, etc. (original working behavior)
+    scope ':slug', constraints: { slug: /[^\/]+/ } do
       root 'conferences#view', as: :conference
       
       # Registration
@@ -66,8 +66,8 @@ BikeBike::Application.routes.draw do
       end
     end
     
-    # Admin routes (without slug normalization)
-    scope ':slug' do
+    # Admin routes (same regex constraint as public routes)
+    scope ':slug', constraints: { slug: /[^\/]+/ } do
       get 'edit' => 'administration#edit', as: :edit_conference
   
       # Administration
