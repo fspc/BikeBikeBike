@@ -4,8 +4,10 @@ Sidekiq::Web.set :sessions, false
 BikeBike::Application.routes.draw do
 
   # Redirect uppercase CONFERENCES to lowercase conferences
-  get '/CONFERENCES(*anything)', to: redirect { |params, request| "/conferences#{params[:anything]}" }
+  get '/CONFERENCES(*anything)', to: redirect { |params| "/conferences#{params[:anything]}" }
   get '/CONFERENCES', to: redirect('/conferences')
+  get '/Conferences(*anything)', to: redirect { |params| "/conferences#{params[:anything]}" }
+  get '/Conferences', to: redirect('/conferences')
 
   # Conferences
   scope :conferences do
@@ -14,11 +16,10 @@ BikeBike::Application.routes.draw do
     get 'new' => 'administration#new', as: :new_conference
     post 'save' => 'administration#save', as: :save_conference
 
+    # Public routes with slug normalization
     scope ':slug', constraints: SlugConstraint.new do
       root 'conferences#view', as: :conference
       
-      get 'edit' => 'administration#edit', as: :edit_conference
-  
       # Registration
       scope :register do
         root 'conferences#register', as: :register, via: [:get, :post]
@@ -27,18 +28,7 @@ BikeBike::Application.routes.draw do
         get ':step' => 'conferences#register', as: :register_step
       end
       
-      # Administration
-      scope :administration do
-        root 'conference_administration#administration', as: :administrate_conference
-
-        get ':step' => 'conference_administration#administration_step', as: :administration_step
-        get 'stats/:conference_slug' => 'conference_administration#previous_stats', as: :previous_stats
-        post 'update/:step' => 'conference_administration#admin_update', as: :administration_update
-        get 'events/edit/:id' => 'conference_administration#edit_event', as: :edit_event
-        get 'locations/edit/:id' => 'conference_administration#edit_location', as: :edit_location
-        get 'check_in/:id' => 'conference_administration#check_in', as: :check_in, constraints: { id: /.+/ }
-      end
-
+      # Survey
       scope :survey do
         root 'conferences#survey', as: :conference_survey
         post 'save' => 'conferences#save_survey', as: :conference_survey_save
@@ -73,6 +63,23 @@ BikeBike::Application.routes.draw do
             get ':user_id/:approve_or_deny' => 'workshops#approve_facilitate_request', as: :approve_facilitate_workshop_request
           end
         end
+      end
+    end
+    
+    # Admin routes (without slug normalization)
+    scope ':slug' do
+      get 'edit' => 'administration#edit', as: :edit_conference
+  
+      # Administration
+      scope :administration do
+        root 'conference_administration#administration', as: :administrate_conference
+
+        get ':step' => 'conference_administration#administration_step', as: :administration_step
+        get 'stats/:conference_slug' => 'conference_administration#previous_stats', as: :previous_stats
+        post 'update/:step' => 'conference_administration#admin_update', as: :administration_update
+        get 'events/edit/:id' => 'conference_administration#edit_event', as: :edit_event
+        get 'locations/edit/:id' => 'conference_administration#edit_location', as: :edit_location
+        get 'check_in/:id' => 'conference_administration#check_in', as: :check_in, constraints: { id: /.+/ }
       end
     end
   end

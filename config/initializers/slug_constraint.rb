@@ -1,6 +1,8 @@
 class SlugConstraint
   def matches?(request)
-    request.params[:slug] = request.params[:slug].downcase if request.params[:slug]
+    if request.params[:slug]
+      request.params[:slug] = request.params[:slug].downcase
+    end
     true
   end
 end
